@@ -12,7 +12,7 @@ const Layout = props => {
             <Toolbar 
                 isAuth={false}
             />
-           
+           <main className={classes.Content}>{props.children}</main>
         </div>
     )
 }
