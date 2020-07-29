@@ -30,7 +30,7 @@ const Customer = ( props ) => {
         <div className={classes.Order}>
             <p>Products: {productOutput}</p>
             <p>Revenue: <strong>USD {Number.parseFloat( props.revenue).toFixed( 2 )}</strong></p>
-            <p>Workers: <strong>{Number.parseFloat( props.workers).toFixed( 2 )}</strong></p>
+            <p>Workers: <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong></p>
         </div>
     );
 };

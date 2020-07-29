@@ -6,6 +6,9 @@ import axios from '../../axios-customers';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import Button from '../../components/UI/Button/Button';
+import classes from './Customers.module.css';
+
 
 const Customers = props => {
   const { onFetchCustomers } = props;
@@ -25,7 +28,15 @@ const Customers = props => {
       />
     ));
   }
-  return <div>{customers}</div>;
+  return (
+      <div className={classes.Customers}>
+          {customers}
+          <div className={classes.centerDiv}>
+          <button
+             className={classes.OrderButton}> Add Customer </button>
+            </div>
+      </div>
+  )
 };
 
 const mapStateToProps = state => {
