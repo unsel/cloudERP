@@ -32,6 +32,7 @@ const Customer = ( props ) => {
             <p>Name: <strong>{props.name}</strong></p>
             <p>Revenue: <strong>USD {Number.parseFloat( props.revenue).toFixed( 2 )}</strong></p>
             <p>Workers: <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong></p>
+            <p>Id: <strong>{props.id}</strong></p>
         </div>
     );
 };

@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 
 import Button from '../../UI/Button/Button'
 import Spinner from '../../UI/Spinner/Spinner';
-import classes from './newCustomer.module.css';
+import classes from './AddCustomer.module.css';
 import axios from '../../../axios-customers';
 import Input from '../../UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
 import { updateObject, checkValidity } from '../../../shared/utility';
 
-const ContactData = props => {
+const AddCustomer = props => {
+  const [formOpen,setFormOpen] = useState(false)
   const [customerForm, setCustomerForm] = useState({
     name: {
       elementType: 'input',
@@ -88,8 +89,9 @@ const ContactData = props => {
       id:formData.id,
       customerId:3
     };
-    console.log("customerinfo = " + customer)
+
     props.onAddCustomer(customer /*, props.token*/);
+    setFormOpen(false);
   };
 
   const inputChangedHandler = (event, inputIdentifier) => {
@@ -142,11 +144,21 @@ const ContactData = props => {
   if (props.loading) {
     form = <Spinner />;
   }
-  return (
-    <div className={classes.ContactData}>
-      <h4>Enter your Contact Data</h4>
+  let a =null;
+  formOpen ? a=(
+    <div className={classes.Form}>
+      <h4>New Customer</h4>
       {form}
-    </div>
+    </div>  
+    ):a=<div className={classes.Form}>
+    <Button 
+      btnType="Success"
+      clicked={()=>{setFormOpen(true)}}>Add Customer</Button>
+  </div>  
+  
+  return (
+    
+    a  
   );
 };
 
@@ -167,4 +179,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withErrorHandler(ContactData, axios));
+)(withErrorHandler(AddCustomer, axios));

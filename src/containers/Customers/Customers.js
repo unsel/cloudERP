@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Customer from '../../components/Customer/Customer';
-import NewCustomer from '../../components/Customer/newCustomer/newCustomer';
+import AddCustomer from '../../components/Customer/AddCustomer/AddCustomer';
 import axios from '../../axios-customers';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
@@ -33,10 +33,7 @@ const Customers = props => {
   return (
       <div className={classes.Customers}>
           {customers}
-          <NewCustomer />
-          {/* <div className={classes.centerDiv}>
-            <button className={classes.OrderButton}> Add Customer </button>
-          </div> */}
+          <AddCustomer/>
       </div>
   )
 };
