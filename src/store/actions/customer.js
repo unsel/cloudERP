@@ -1,6 +1,46 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-customers';
 
+export const addCustomerSuccess = ( id, customerData ) => {
+    return {
+        type: actionTypes.ADD_CUSTOMER_SUCCESS,
+        customerId: id,
+        customerData: customerData
+    };
+};
+
+export const addCustomerFail = ( error ) => {
+    return {
+        type: actionTypes.ADD_CUSTOMER_FAIL,
+        error: error
+    };
+}
+
+export const addCustomerStart = () => {
+    return {
+        type: actionTypes.ADD_CUSTOMER_START
+    };
+};
+
+export const addCustomer = ( customerData/*, token*/) => {
+    return dispatch => {
+        dispatch( addCustomerStart() );
+        axios.post( '/Customers.json',customerData)
+            .then( response => {
+                dispatch( addCustomerSuccess( response.data.name, customerData ) );
+            } )
+            .catch( error => {
+                dispatch( addCustomerFail( error ) );
+            } );
+    };
+};
+
+export const addCustomerInit = () => {
+    return {
+        type: actionTypes.ADD_CUSTOMER_INIT
+    };
+};
+
 
 export const fetchCustomersSuccess = ( customers ) => {
     return {

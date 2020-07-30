@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Customer from '../../components/Customer/Customer';
+import NewCustomer from '../../components/Customer/newCustomer/newCustomer';
 import axios from '../../axios-customers';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
@@ -22,19 +23,20 @@ const Customers = props => {
     customers= props.customers.map(customer => (
       <Customer
         key={customer.id}
-        products={customer.products}
+        name={customer.name}
         revenue={customer.revenue}
         workers={customer.workers}
+        id={customer.id}
       />
     ));
   }
   return (
       <div className={classes.Customers}>
           {customers}
-          <div className={classes.centerDiv}>
-          <button
-             className={classes.OrderButton}> Add Customer </button>
-            </div>
+          <NewCustomer />
+          {/* <div className={classes.centerDiv}>
+            <button className={classes.OrderButton}> Add Customer </button>
+          </div> */}
       </div>
   )
 };
