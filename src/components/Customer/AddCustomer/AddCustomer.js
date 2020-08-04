@@ -59,19 +59,7 @@ const AddCustomer = props => {
         valid: false,
         touched: false
       },
-      id: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'text',
-          placeholder: 'customerID'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
+      
   });
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -86,8 +74,6 @@ const AddCustomer = props => {
       name:formData.name,
       revenue:formData.revenue,
       workers:formData.workers,
-      id:formData.id,
-      customerId:3
     };
 
     props.onAddCustomer(customer /*, props.token*/);

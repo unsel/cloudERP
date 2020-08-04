@@ -40,6 +40,47 @@ export const addCustomerInit = () => {
         type: actionTypes.ADD_CUSTOMER_INIT
     };
 };
+export const removeCustomerSuccess = ( id, customerData ) => {
+    return {
+        type: actionTypes.REMOVE_CUSTOMER_SUCCESS,
+        customerId: id,
+        customerData: customerData
+    };
+};
+
+export const removeCustomerFail = ( error ) => {
+    return {
+        type: actionTypes.REMOVE_CUSTOMER_FAIL,
+        error: error
+    };
+}
+
+export const removeCustomerStart = () => {
+    return {
+        type: actionTypes.REMOVE_CUSTOMER_START
+    };
+};
+
+export const removeCustomer = ( customerId/*, token*/) => {
+    return dispatch => {
+        dispatch( removeCustomerStart() );
+       
+        axios.delete(`/Customers/${customerId}.json`)
+            .then( response => {
+                dispatch(removeCustomerSuccess(customerId) );
+            } )
+            .catch( error => {
+                console.log('error is'+error)
+                // dispatch(removeCustomerFail( error ) );
+            } );
+    };
+};
+
+export const removeCustomerInit = () => {
+    return {
+        type: actionTypes.REMOVE_CUSTOMER_INIT
+    };
+};
 
 
 export const fetchCustomersSuccess = ( customers ) => {

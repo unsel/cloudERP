@@ -27,6 +27,26 @@ const addCustomerSuccess = ( state, action ) => {
 const addCustomerFail = ( state, action ) => {
     return updateObject( state, { loading: false } );
 };
+const removeCustomerInit = ( state, action ) => {
+    return updateObject( state, { added: false } );
+};
+
+const removeCustomerStart = ( state, action ) => {
+    return updateObject( state, { loading: true } );
+};
+
+const removeCustomerSuccess = ( state, action ) => {
+    console.log("ActionRemovis => "+JSON.stringify(action))
+    return updateObject( state, {
+        loading: false,
+        added: true,
+        customers: state.customers.filter(function(el) { return el.id != action.customerId })
+    } );
+};
+
+const removeCustomerFail = ( state, action ) => {
+    return updateObject( state, { loading: false } );
+};
 
 
 const fetchCustomersStart = ( state, action ) => {
@@ -50,6 +70,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADD_CUSTOMER_START: return addCustomerStart( state, action );
         case actionTypes.ADD_CUSTOMER_SUCCESS: return addCustomerSuccess( state, action )
         case actionTypes.ADD_CUSTOMER_FAIL: return addCustomerFail( state, action );
+        case actionTypes.REMOVE_CUSTOMER_INIT: return removeCustomerInit( state, action );
+        case actionTypes.REMOVE_CUSTOMER_START: return removeCustomerStart( state, action );
+        case actionTypes.REMOVE_CUSTOMER_SUCCESS: return removeCustomerSuccess( state, action )
+        case actionTypes.REMOVE_CUSTOMER_FAIL: return removeCustomerFail( state, action );
         case actionTypes.FETCH_CUSTOMERS_START: return fetchCustomersStart( state, action );
         case actionTypes.FETCH_CUSTOMERS_SUCCESS: return fetchCustomersSuccess( state, action );
         case actionTypes.FETCH_CUSTOMERS_FAIL: return fetchCustomersFail( state, action );
