@@ -13,12 +13,11 @@ const Customer = ( props ) => {
 
     return (
         <div className={classes.Customer}>
-            {/* <p>Products: {productOutput}</p> */}
             <p>Name: <strong>{props.name}</strong> &emsp;
              Revenue: <strong>USD {Number.parseFloat( props.revenue).toFixed( 2 )}</strong>&emsp;
              Workers: <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong>&emsp;
-            Id: <strong>{props.id}</strong></p>
-            <button onClick={()=>{props.onRemoveCustomer(props.id)}}>DELETE</button>
+            Id: <strong>{props.id}</strong>&emsp;&emsp;
+            <button onClick={()=>{props.onRemoveCustomer(props.id)}}>DELETE</button></p>
         </div>
     );
 };

@@ -6,3 +6,11 @@
     margin: 10px auto;
     box-sizing: border-box;
 }
+
+.Customer button{
+    
+    border: 1px solid gray;
+    background-color: red;
+    color:white;
+    float: right;
+}
