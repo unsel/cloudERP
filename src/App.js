@@ -5,6 +5,8 @@ import Spinner from './components/UI/Spinner/Spinner';
 
 import Layout from './hoc/Layout/Layout';
 
+//SQL
+
 const App = props => {
 
   const Customers = React.lazy(() => {
