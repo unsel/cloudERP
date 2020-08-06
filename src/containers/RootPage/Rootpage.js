@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import classes from './Rootpage.module.css';
 
 
@@ -9,10 +10,10 @@ const Rootpage = props => {
 
     return (
         <div className={classes.Shortcuts}>
-            <a href="customers"><div><strong>Flats</strong></div></a>
-            <a href="customers"><div><strong>Customers</strong></div></a>
-            <a href="customers"><div><strong>Invoices</strong></div></a>
-            <a href="customers"><div><strong>NoContext</strong></div></a>
+            <Link to="/customers"><div><strong>Flats</strong></div></Link>
+            <Link to="/customers"><div><strong>Customers</strong></div></Link>
+            <Link to="/customers"><div><strong>Invoices</strong></div></Link>
+            <Link to="/customers"><div><strong>NoContext</strong></div></Link>
         </div>
     )
 }

@@ -1,0 +1,7 @@
+.FilterForm{
+    text-align: center;
+}
+.FilterForm input{
+    margin: 10px;
+    padding-top: 3px; padding-bottom: 3px; padding-left: 6px;
+}

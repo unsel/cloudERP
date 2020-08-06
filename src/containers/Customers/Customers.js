@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Customer from '../../components/Customer/Customer';
@@ -7,12 +7,13 @@ import axios from '../../axios-customers';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Button from '../../components/UI/Button/Button';
 import classes from './Customers.module.css';
 
 
 const Customers = props => {
   const { onFetchCustomers } = props;
+  const [nameFilter,setNameFilter] = useState("")
+  const [workerFilter,setWorkerFilter] = useState("")
 
   useEffect(() => {
     onFetchCustomers(/*props.token, props.userId*/);
@@ -20,7 +21,8 @@ const Customers = props => {
 
   let customers = <Spinner />;
   if (!props.loading) {
-    customers= props.customers.map(customer => (
+    customers= props.customers.filter(customer => customer.name.includes(nameFilter) || customer.worker === workerFilter )
+    .map(customer => (
       <Customer
         key={customer.id}
         name={customer.name}
@@ -33,8 +35,21 @@ const Customers = props => {
       />
     ));
   }
+  const nameFilterChangedHandler= (e) => {
+    setNameFilter(e.target.value)
+  }
+  const workerFilterChangedHandler= (e) => {
+    setWorkerFilter(e.target.value)
+  }
+  let filterForm = (
+    <div className={classes.FilterForm}>
+        <input placeholder="Name" value={nameFilter} type="text" onChange={nameFilterChangedHandler}/>
+        <input placeholder="Worker" value={workerFilter} type="text" onChange={workerFilterChangedHandler}/>
+    </div>
+  )
   return (
       <div >
+          {filterForm}
           {customers}
           <AddCustomer/>
       </div>

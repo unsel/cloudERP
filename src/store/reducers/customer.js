@@ -36,11 +36,10 @@ const removeCustomerStart = ( state, action ) => {
 };
 
 const removeCustomerSuccess = ( state, action ) => {
-    console.log("ActionRemovis => "+JSON.stringify(action))
     return updateObject( state, {
         loading: false,
         added: true,
-        customers: state.customers.filter(function(el) { return el.id != action.customerId })
+        customers: state.customers.filter(function(el) { return el.id !== action.customerId })
     } );
 };
 

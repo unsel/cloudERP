@@ -1,11 +1,11 @@
 import React, {Suspense} from 'react';
-import { Route, Switch, withRouter, Redirect} from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Route, Switch, Redirect} from 'react-router-dom';
+// import { connect } from 'react-redux';
 import Spinner from './components/UI/Spinner/Spinner';
 
 import Layout from './hoc/Layout/Layout';
 import Rootpage from './containers/RootPage/Rootpage';
-//SQL
+
 
 const App = props => {
 
