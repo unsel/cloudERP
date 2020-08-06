@@ -1,10 +1,10 @@
-import React, {useEffect, Suspense} from 'react';
+import React, {Suspense} from 'react';
 import { Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from './components/UI/Spinner/Spinner';
 
 import Layout from './hoc/Layout/Layout';
-
+import Rootpage from './containers/RootPage/Rootpage';
 //SQL
 
 const App = props => {
@@ -16,6 +16,7 @@ const App = props => {
     <Switch>
       <Route path="/spin" render={props => <Spinner />} />
       <Route path="/customers" render={props => <Customers {...props} />} />
+      <Route path="/" render={props => <Rootpage/>} />
       <Redirect to="/" />
     </Switch>
   );

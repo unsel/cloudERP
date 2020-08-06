@@ -109,6 +109,7 @@ export const fetchCustomers = (/*token, userId*/) => {
         // const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
         axios.get( '/Customers.json')
             .then( res => {
+                console.log("resdata=>" + JSON.stringify(res.data))
                 const fetchedCustomers = [];
                 for ( let key in res.data ) {
                     fetchedCustomers.push( {

@@ -1,10 +1,10 @@
 .Toolbar {
-    height: 56px;
+    height: 55px;
     width: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #703B09;
+    background-color: #DCDCDC;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,9 +16,23 @@
 .Toolbar nav {
     height: 100%;
 }
-
+.Searchbar input[type=text] {
+    float: right;
+    padding: 6px;
+    border:none;
+    border-radius: 6px;
+    margin-top: 0px;
+    margin-right: 16px;
+    font-size: 14px;
+    width: 15em;
+  }
+.Searchbar{
+   margin-left: auto;
+   margin-right: 30px;
+}
 .Logo {
     height: 80%;
+    margin-left: 5em;
 }
 
 @media (max-width: 499px) {

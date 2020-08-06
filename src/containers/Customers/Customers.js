@@ -27,11 +27,14 @@ const Customers = props => {
         revenue={customer.revenue}
         workers={customer.workers}
         id={customer.id}
+        // products={(Object.keys(customer.products)).map((item,i)=>{
+        //   return <p>{item}</p>
+        // })}
       />
     ));
   }
   return (
-      <div className={classes.Customers}>
+      <div >
           {customers}
           <AddCustomer/>
       </div>

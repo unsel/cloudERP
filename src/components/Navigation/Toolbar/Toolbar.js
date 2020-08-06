@@ -9,6 +9,9 @@ const toolbar = ( props ) => (
         <div className={classes.Logo}>
             <Logo />
         </div>
+        <div className={classes.Searchbar}>
+            <input type="text" placeholder=" Search or type a command"></input>
+        </div>
         <nav className={classes.DesktopOnly}>
             <NavigationItems isAuthenticated={props.isAuth} />
         </nav>

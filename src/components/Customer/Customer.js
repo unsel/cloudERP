@@ -18,6 +18,10 @@ const Customer = ( props ) => {
              Workers: <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong>&emsp;
             Id: <strong>{props.id}</strong>&emsp;&emsp;
             <button onClick={()=>{props.onRemoveCustomer(props.id)}}>DELETE</button></p>
+          {/* <p>{props.products.map((item,i)=>{ 
+            return <p>Product {i} - {item.product1}</p>
+          })}</p> */}
+          {/* <p>{props.products}</p> */}
         </div>
     );
 };
