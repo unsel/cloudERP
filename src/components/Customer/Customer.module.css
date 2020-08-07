@@ -1,16 +1,22 @@
 .Customer {
-    width: 60%;
     border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
+    box-shadow: 0 2px 1px #ccc;
     padding: 3px 10px;
-    margin: 10px auto;
+    margin: 4px auto;
     box-sizing: border-box;
 }
 
+.Customer p{
+    display: inline-block;
+    width: 20%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
 .Customer button{
-    
     border: 1px solid gray;
-    background-color: red;
+    border-radius: 2px;
+    background-color: rgba(24, 161, 216, 0.966);
     color:white;
     float: right;
 }

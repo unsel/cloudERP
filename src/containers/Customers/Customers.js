@@ -8,6 +8,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Customers.module.css';
+import Header from '../../components/Header/Header';
 
 
 const Customers = props => {
@@ -21,7 +22,7 @@ const Customers = props => {
 
   let customers = <Spinner />;
   if (!props.loading) {
-    customers= props.customers.filter(customer => customer.name.includes(nameFilter) || customer.worker === workerFilter )
+    customers= props.customers.filter(customer => (customer.name.includes(nameFilter) || +customer.worker === workerFilter) )
     .map(customer => (
       <Customer
         key={customer.id}
@@ -47,10 +48,32 @@ const Customers = props => {
         <input placeholder="Worker" value={workerFilter} type="text" onChange={workerFilterChangedHandler}/>
     </div>
   )
+  const headDiv = (
+    <div className={classes.HeadDiv}>
+            <p> <strong>Full Name</strong></p> 
+            <p> <strong>Revenue </strong></p>
+            <p> <strong>Workers</strong></p>
+          {/* <p>{props.products.map((item,i)=>{ 
+            return <p>Product {i} - {item.product1}</p>
+          })}</p> */}
+          {/* <p>{props.products}</p> */}
+        </div>
+  )
   return (
       <div >
-          {filterForm}
-          {customers}
+          <Header
+            name = {"Customers"} />
+          <div className={classes.Content}>
+            <div className={classes.Sidebar}>
+               
+            </div>
+            <div className={classes.Customers}>
+            {filterForm}
+            {headDiv}
+            {customers}
+            </div>
+            
+          </div>
           <AddCustomer/>
       </div>
   )

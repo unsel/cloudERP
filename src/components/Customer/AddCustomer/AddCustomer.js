@@ -143,8 +143,7 @@ const AddCustomer = props => {
   </div>  
   
   return (
-    
-    a  
+    a
   );
 };
 

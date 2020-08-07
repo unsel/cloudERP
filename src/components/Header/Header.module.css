@@ -1,0 +1,26 @@
+h2{
+    display: inline;
+}
+.First{
+    width:50%;
+}
+.Header{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.Buttons{
+    float: right;
+    width: 50%;
+}
+.Buttons button{
+    margin: 5px;
+    border: none;
+    border-radius: 2px;
+    height: 2em;
+    
+}
+.Ref{
+    background-color: #5e64ff;
+    color: white;
+}

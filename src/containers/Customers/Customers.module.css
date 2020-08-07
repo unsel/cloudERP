@@ -1,7 +1,41 @@
+.Content{
+    border-top: 1px solid #d8d8d8;
+}
+
+.Sidebar{
+    width: 20%;
+    display: inline-block;
+}
+.Customers{
+    width: 65%;
+    display: inline-block;
+    border-left: 1px solid #d8d8d8;
+    border-right: 1px solid #d8d8d8;
+}
+
 .FilterForm{
     text-align: center;
+    background-color: #F7FAFC;
+    border-bottom: 1px solid #d8d8d8;
 }
 .FilterForm input{
     margin: 10px;
     padding-top: 3px; padding-bottom: 3px; padding-left: 6px;
 }
+
+.HeadDiv {
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 3px 10px;
+    margin: 4px auto;
+    box-sizing: border-box;
+    background-color: #F7FAFC;
+}
+
+.HeadDiv p{
+    display: inline-block;
+    width: 20%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
