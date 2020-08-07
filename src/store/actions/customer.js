@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-customers';
+import axios from '../../axios';
 
 export const addCustomerSuccess = ( id, customerData ) => {
     return {

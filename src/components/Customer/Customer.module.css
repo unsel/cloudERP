@@ -11,6 +11,8 @@
     width: 20%;
     overflow: hidden;
     margin-right: 10px;
+    font: 13px Helvetica ;
+    color: #36414C;
 }
 
 .Customer button{

@@ -9,8 +9,9 @@
 .Customers{
     width: 65%;
     display: inline-block;
-    border-left: 1px solid #d8d8d8;
-    border-right: 1px solid #d8d8d8;
+    border-left: 1px solid #d8d8d8; border-right: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+    height: 600px;
 }
 
 .FilterForm{
@@ -25,8 +26,8 @@
 
 .HeadDiv {
     border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
-    padding: 3px 10px;
+    box-shadow: 0 2px 2px #ccc;
+    padding: 0px 10px;
     margin: 4px auto;
     box-sizing: border-box;
     background-color: #F7FAFC;
@@ -37,5 +38,7 @@
     width: 20%;
     overflow: hidden;
     margin-right: 10px;
+    font: 13px Helvetica ;
+    color: #36414C;
 }
 

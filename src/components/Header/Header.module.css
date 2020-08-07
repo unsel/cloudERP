@@ -1,13 +1,16 @@
+.Header{
+   
+    z-index: 80;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 h2{
     display: inline;
 }
 .First{
     width:50%;
-}
-.Header{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
 }
 .Buttons{
     float: right;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Button from '../../UI/Button/Button'
 import Spinner from '../../UI/Spinner/Spinner';
 import classes from './AddCustomer.module.css';
-import axios from '../../../axios-customers';
+import axios from '../../../axios';
 import Input from '../../UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
@@ -30,7 +30,7 @@ const AddCustomer = props => {
     revenue: {
       elementType: 'input',
       elementConfig: {
-        type: 'text',
+        type: 'number',
         placeholder: 'revenue'
       },
       value: '',
@@ -46,7 +46,7 @@ const AddCustomer = props => {
     workers: {
         elementType: 'input',
         elementConfig: {
-          type: 'text',
+          type: 'number',
           placeholder: 'workers'
         },
         value: '',
