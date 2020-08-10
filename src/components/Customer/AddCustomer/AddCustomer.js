@@ -61,6 +61,14 @@ const AddCustomer = props => {
   });
   const [formIsValid, setFormIsValid] = useState(false);
 
+  const clearForm = () =>{
+    const updatedForm = updateObject(customerForm,{
+      name: updateObject(customerForm.name,{value:""}),
+      workers:updateObject(customerForm.workers,{value:''}),
+      revenue:updateObject(customerForm.revenue,{value:''})
+    })
+    setCustomerForm(updatedForm)
+  }
   const orderHandler = event => {
     // event.preventDefault();
 
@@ -76,8 +84,10 @@ const AddCustomer = props => {
 
     props.onAddCustomer(customer /*, props.token*/);
     props.addedNew();
+    clearForm();
   };
 
+  
   const inputChangedHandler = (event, inputIdentifier) => {
     const updatedFormElement = updateObject(customerForm[inputIdentifier], {
       value: event.target.value,
@@ -134,6 +144,7 @@ const AddCustomer = props => {
         <span className={classes.Text1}><strong>New Customer</strong></span>
         <button className={classes.SaveBtn} onClick={()=>orderHandler()} disabled={!formIsValid}>Save</button>
         <button className={classes.CloseBtn} onClick={()=> props.closeNew()}>Close</button>
+        <button className={classes.ResetBtn} onClick={()=>clearForm()} >Reset</button>
       </div>
       {form}
     </div>  

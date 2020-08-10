@@ -39,5 +39,7 @@
 }
 .CloseBtn{
     float: right;
-    /* padding: ; */
+}
+.ResetBtn{
+    float: right;
 }

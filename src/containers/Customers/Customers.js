@@ -77,7 +77,8 @@ const Customers = props => {
           </Modal>
           <Header
             name = {"Customers"}
-            addingHandler = {()=>addingNewHandler()} />
+            addingHandler = {()=>addingNewHandler()} 
+            refreshHandler={()=>onFetchCustomers()}/>
           <div className={classes.Content}>
             <div className={classes.Sidebar}>
                
