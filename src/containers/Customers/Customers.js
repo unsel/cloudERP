@@ -9,12 +9,14 @@ import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Customers.module.css';
 import Header from '../../components/Header/Header';
+import Modal from '../../components/UI/Modal/Modal';
 
 
 const Customers = props => {
   const { onFetchCustomers } = props;
   const [nameFilter,setNameFilter] = useState("")
   const [workerFilter,setWorkerFilter] = useState()
+  const [addingNew,setAddingNew] = useState(false);
 
   useEffect(() => {
     onFetchCustomers(/*props.token, props.userId*/);
@@ -42,6 +44,13 @@ const Customers = props => {
   const workerFilterChangedHandler= (e) => {
     setWorkerFilter(e.target.value)
   }
+  const addingNewHandler = (e) => {
+    setAddingNew(true)
+  }
+  const addingClosedHandler = (e) => {
+    setAddingNew(false)
+  }
+  
   let filterForm = (
     <div className={classes.FilterForm}>
         <input placeholder="Name" value={nameFilter} type="text" onChange={nameFilterChangedHandler}/>
@@ -61,8 +70,14 @@ const Customers = props => {
   )
   return (
       <div >
+          <Modal show={addingNew} modalClosed={()=>addingClosedHandler()}>
+            <AddCustomer
+              addedNew={()=>addingClosedHandler()}
+              closeNew={()=>addingClosedHandler()}/>
+          </Modal>
           <Header
-            name = {"Customers"} />
+            name = {"Customers"}
+            addingHandler = {()=>addingNewHandler()} />
           <div className={classes.Content}>
             <div className={classes.Sidebar}>
                
@@ -74,7 +89,7 @@ const Customers = props => {
             </div>
             
           </div>
-          <AddCustomer/>
+          
       </div>
   )
 };

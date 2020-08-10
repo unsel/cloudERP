@@ -2,19 +2,25 @@
     position: fixed;
     z-index: 500;
     background-color: white;
-    width: 70%;
+    width: 40%;
     border: 1px solid #ccc;
+    border-radius: 3px;
     box-shadow: 1px 1px 1px black;
-    padding: 16px;
-    left: 15%;
-    top: 30%;
+    left: calc(30%);
+    top: 40px;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
 }
 
-@media (min-width: 600px) {
+@media (max-width: 1500px) {
     .Modal {
-        width: 500px;
-        left: calc(50% - 250px);
+        width: 60%;
+        left: calc(20%);
+    }
+}
+@media (max-width: 900px) {
+    .Modal {
+        width: 70%;
+        left: calc(15%);
     }
 }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import Button from '../../UI/Button/Button'
 import Spinner from '../../UI/Spinner/Spinner';
 import classes from './AddCustomer.module.css';
 import axios from '../../../axios';
@@ -11,13 +10,12 @@ import * as actions from '../../../store/actions/index';
 import { updateObject, checkValidity } from '../../../shared/utility';
 
 const AddCustomer = props => {
-  const [formOpen,setFormOpen] = useState(false)
   const [customerForm, setCustomerForm] = useState({
     name: {
       elementType: 'input',
       elementConfig: {
         type: 'text',
-        placeholder: 'Name'
+        placehold: 'Name'
       },
       value: '',
       validation: {
@@ -31,7 +29,7 @@ const AddCustomer = props => {
       elementType: 'input',
       elementConfig: {
         type: 'number',
-        placeholder: 'revenue'
+        placehold: 'Revenue'
       },
       value: '',
       validation: {
@@ -47,7 +45,7 @@ const AddCustomer = props => {
         elementType: 'input',
         elementConfig: {
           type: 'number',
-          placeholder: 'workers'
+          placehold: 'Workers'
         },
         value: '',
         validation: {
@@ -64,9 +62,9 @@ const AddCustomer = props => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   const orderHandler = event => {
-    event.preventDefault();
+    // event.preventDefault();
 
-    const formData = {};
+    let formData = {};
     for (let formElementIdentifier in customerForm) {
       formData[formElementIdentifier] = customerForm[formElementIdentifier].value;
     }
@@ -77,7 +75,7 @@ const AddCustomer = props => {
     };
 
     props.onAddCustomer(customer /*, props.token*/);
-    setFormOpen(false);
+    props.addedNew();
   };
 
   const inputChangedHandler = (event, inputIdentifier) => {
@@ -113,6 +111,7 @@ const AddCustomer = props => {
       {formElementsArray.map(formElement => (
         <Input
           key={formElement.id}
+          label={formElement.config.elementConfig.placehold}
           elementType={formElement.config.elementType}
           elementConfig={formElement.config.elementConfig}
           value={formElement.config.value}
@@ -122,28 +121,22 @@ const AddCustomer = props => {
           changed={event => inputChangedHandler(event, formElement.id)}
         />
       ))}
-      <Button btnType="Success" disabled={!formIsValid}>
-        ORDER
-      </Button>
     </form>
   );
   if (props.loading) {
     form = <Spinner />;
   }
-  let a =null;
-  formOpen ? a=(
-    <div className={classes.Form}>
-      <h4>New Customer</h4>
-      {form}
-    </div>  
-    ):a=<div className={classes.Form}>
-    <Button 
-      btnType="Success"
-      clicked={()=>{setFormOpen(true)}}>Add Customer</Button>
-  </div>  
+ 
   
   return (
-    a
+    <div className={classes.Form}>
+      <div className={classes.HeadDiv}>
+        <span className={classes.Text1}><strong>New Customer</strong></span>
+        <button className={classes.SaveBtn} onClick={()=>orderHandler()} disabled={!formIsValid}>Save</button>
+        <button className={classes.CloseBtn} onClick={()=> props.closeNew()}>Close</button>
+      </div>
+      {form}
+    </div>  
   );
 };
 

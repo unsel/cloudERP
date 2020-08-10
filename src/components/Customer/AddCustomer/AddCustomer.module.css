@@ -1,15 +1,43 @@
 .Form {
-    margin: 20px auto;
-    width: 80%;
-    text-align: center;
-    box-shadow: 0 2px 3px #ccc;
-    border: 1px solid #eee;
-    padding: 10px;
-    box-sizing: border-box;
+    margin: 10px 0px;
+    width: 100%;
 }
 
 @media (min-width: 600px) {
     .Form {
-        width: 500px;
+        width: 100%;
     }
+}
+
+.Placeholders{
+    font-size: 13px;
+    margin-top: 6px;
+    text-align: left;
+    color:black;
+    padding-left: 15px;
+}
+.HeadDiv{
+    padding: 10px 10px 15px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 15px;
+}
+
+.Text1{
+    display:inline-block;
+    margin-left: 10px;
+}
+.HeadDiv Button{
+    margin-left: 5px;
+    border: none;
+    border-radius: 2px;
+    height: 2em;
+}
+.SaveBtn{
+    float: right;
+    background-color: #5e64ff;
+    color: white;
+}
+.CloseBtn{
+    float: right;
+    /* padding: ; */
 }
