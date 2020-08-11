@@ -19,6 +19,18 @@
     background-color: #F7FAFC;
     border-bottom: 1px solid #d8d8d8;
 }
+
+.FilterDiv{
+    display: inline-block;
+}
+.FilterDiv button{
+    border: none;
+    border-radius: 4px;
+    color: #565c61;
+    background-color: #d3dae0;
+    height: 2em;
+    margin-right: 15px;
+}
 .FilterForm input{
     margin: 10px;
     padding-top: 3px; padding-bottom: 3px; padding-left: 6px;

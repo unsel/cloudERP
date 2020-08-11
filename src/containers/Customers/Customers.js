@@ -17,15 +17,26 @@ const Customers = props => {
   const [nameFilter,setNameFilter] = useState("")
   const [workerFilter,setWorkerFilter] = useState()
   const [addingNew,setAddingNew] = useState(false);
+  const [sortFilter,setSortFilter] = useState("")
+  const [sortOrder,setSortOrder] = useState(1)
 
   useEffect(() => {
     onFetchCustomers(/*props.token, props.userId*/);
   }, [onFetchCustomers]);
 
+  const sortBy = (a,b) => {
+    if(sortFilter === "name"){
+    return a[sortFilter] > b[sortFilter] ? sortOrder:-sortOrder;
+    } else {
+      return +a[sortFilter] > +b[sortFilter] ? sortOrder:-sortOrder;
+    }
+  }
+
   let customers = <Spinner />;
   if (!props.loading) {
-    customers= props.customers.filter(customer => (customer.name.includes(nameFilter) || +customer.workers < workerFilter) )
-    .map(customer => (
+    customers= [...props.customers].sort(sortBy)
+            .filter(customer => (customer.name.includes(nameFilter) || +customer.workers < workerFilter) )
+            .map(customer => (
       <Customer
         key={customer.id}
         name={customer.name}
@@ -37,6 +48,10 @@ const Customers = props => {
         // })}
       />
     ));
+  }
+
+  const resetFilters = () => {
+    setSortFilter("");
   }
   const nameFilterChangedHandler= (e) => {
     setNameFilter(e.target.value)
@@ -55,13 +70,17 @@ const Customers = props => {
     <div className={classes.FilterForm}>
         <input placeholder="Name" value={nameFilter} type="text" onChange={nameFilterChangedHandler}/>
         <input placeholder="Worker" value={workerFilter} type="number" onChange={workerFilterChangedHandler}/>
+        <span className={classes.FilterDiv}>
+          <button>SetFilters</button>
+          <button onClick={()=>{resetFilters()}}>ResetFilters</button>
+        </span>
     </div>
   )
   const headDiv = (
     <div className={classes.HeadDiv}>
-            <p> <strong>Full Name</strong></p> 
-            <p> <strong>Revenue </strong></p>
-            <p> <strong>Workers</strong></p>
+            <p onClick={()=>{setSortFilter("name")}}> <strong>Full Name</strong></p> 
+            <p onClick={()=>{setSortFilter("revenue")}}> <strong>Revenue </strong></p>
+            <p onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>
           {/* <p>{props.products.map((item,i)=>{ 
             return <p>Product {i} - {item.product1}</p>
           })}</p> */}
