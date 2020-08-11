@@ -78,6 +78,7 @@ const Customers = props => {
   )
   const headDiv = (
     <div className={classes.HeadDiv}>
+            <input type="checkbox"/>
             <p onClick={()=>{setSortFilter("name")}}> <strong>Full Name</strong></p> 
             <p onClick={()=>{setSortFilter("revenue")}}> <strong>Revenue </strong></p>
             <p onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>

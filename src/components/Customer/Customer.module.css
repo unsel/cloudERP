@@ -1,11 +1,15 @@
 .Customer {
     border: 1px solid #eee;
     box-shadow: 0 2px 1px #ccc;
-    padding: 3px 10px;
+    padding: 0px 10px;
     margin: 4px auto;
     box-sizing: border-box;
 }
-
+.Customer input{
+    float: left;
+    margin-top: 18px;
+    margin-right: 10px;
+}
 .Customer p{
     display: inline-block;
     width: 20%;

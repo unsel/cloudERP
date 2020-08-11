@@ -13,6 +13,7 @@ const Customer = ( props ) => {
 
     return (
         <div className={classes.Customer}>
+            <input type="checkbox"/>
             <p> <strong>{props.name}</strong></p> 
             <p> <strong>USD {Number.parseFloat( props.revenue).toFixed( 2 )}</strong></p>
             <p> <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong></p>

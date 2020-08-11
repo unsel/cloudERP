@@ -44,7 +44,11 @@
     box-sizing: border-box;
     background-color: #F7FAFC;
 }
-
+.HeadDiv input{
+    float: left;
+    margin-top: 15px;
+    margin-right: 10px;
+}
 .HeadDiv p{
     display: inline-block;
     width: 20%;
