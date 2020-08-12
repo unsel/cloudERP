@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from '../../UI/Spinner/Spinner';
-import classes from './AddCustomer.module.css';
+import classes from './EditCustomer.module.css';
 import axios from '../../../axios';
 import Input from '../../UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
 import { updateObject, checkValidity } from '../../../shared/utility';
 
-const AddCustomer = props => {
+const EditCustomer = props => {
+  
   const [customerForm, setCustomerForm] = useState({
     name: {
       elementType: 'input',
@@ -21,8 +22,8 @@ const AddCustomer = props => {
       validation: {
         required: true
       },
-      valid: false,
-      touched: false
+      valid: true,
+      touched: true
     },
     
     revenue: {
@@ -31,14 +32,14 @@ const AddCustomer = props => {
         type: 'number',
         placehold: 'Revenue'
       },
-      value: '',
+      value:  '',
       validation: {
         required: true,
         minLength: 1,
         maxLength: 7,
         isNumeric: true
       },
-      valid: false,
+      valid: true,
       touched: false
     },
     workers: {
@@ -47,19 +48,29 @@ const AddCustomer = props => {
           type: 'number',
           placehold: 'Workers'
         },
-        value: '',
+        value:  '',
         validation: {
           required: true,
           minLength: 1,
           maxLength: 7,
           isNumeric: true
         },
-        valid: false,
+        valid: true,
         touched: false
       },
       
   });
   const [formIsValid, setFormIsValid] = useState(false);
+
+  useEffect(()=>{
+    const updatedForm = updateObject(customerForm,{
+        name: updateObject(customerForm.name,{value:props.customerData.name}),
+        workers:updateObject(customerForm.workers,{value:props.customerData.workers}),
+        revenue:updateObject(customerForm.revenue,{value:props.customerData.revenue})
+      })
+      setCustomerForm(updatedForm)
+      // eslint-disable-next-line
+  },[props.customerData])
 
   const clearForm = () =>{
     const updatedForm = updateObject(customerForm,{
@@ -69,7 +80,7 @@ const AddCustomer = props => {
     })
     setCustomerForm(updatedForm)
   }
-  const addCustomerHandler = event => {
+  const editCustomerHandler = event => {
     // event.preventDefault();
 
     let formData = {};
@@ -82,8 +93,8 @@ const AddCustomer = props => {
       workers:formData.workers,
     };
 
-    props.onAddCustomer(customer /*, props.token*/);
-    props.addedNew();
+    props.onEditCustomer(props.customerData.id,customer);
+    props.editingFinished();
     clearForm();
   };
 
@@ -117,7 +128,7 @@ const AddCustomer = props => {
     });
   }
   let form = (
-    <form onSubmit={addCustomerHandler}>
+    <form onSubmit={editCustomerHandler}>
       {formElementsArray.map(formElement => (
         <Input
           key={formElement.id}
@@ -141,9 +152,9 @@ const AddCustomer = props => {
   return (
     <div className={classes.Form}>
       <div className={classes.HeadDiv}>
-        <span className={classes.Text1}><strong>New Customer</strong></span>
-        <button className={classes.SaveBtn} onClick={()=>addCustomerHandler()} disabled={!formIsValid}>Save</button>
-        <button className={classes.CloseBtn} onClick={()=> props.closeNew()}>Close</button>
+        <span className={classes.Text1}><strong>Editing Customer</strong></span>
+        <button className={classes.SaveBtn} onClick={()=>editCustomerHandler()} disabled={!formIsValid}>Save</button>
+        <button className={classes.CloseBtn} onClick={()=> props.editingClosed()}>Close</button>
         <button className={classes.ResetBtn} onClick={()=>clearForm()} >Reset</button>
       </div>
       {form}
@@ -153,19 +164,18 @@ const AddCustomer = props => {
 
 const mapStateToProps = state => {
   return {
-   
     loading: state.customer.loading,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddCustomer: (customerData) =>
-      dispatch(actions.addCustomer(customerData))
+    onEditCustomer: (customerId,customerData) =>
+      dispatch(actions.editCustomer(customerId,customerData))
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withErrorHandler(AddCustomer, axios));
+)(withErrorHandler(EditCustomer, axios));

@@ -14,31 +14,26 @@ const Customer = ( props ) => {
     return (
         <div className={classes.Customer}>
             <input type="checkbox"/>
-            <p> <strong>{props.name}</strong></p> 
-            <p> <strong>USD {Number.parseFloat( props.revenue).toFixed( 2 )}</strong></p>
-            <p> <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong></p>
-            {/* Id: <strong>{props.id}</strong>&emsp;&emsp; */}
-            <p><button onClick={()=>{props.onRemoveCustomer(props.id)}}>DELETE</button></p>
-          {/* <p>{props.products.map((item,i)=>{ 
-            return <p>Product {i} - {item.product1}</p>
-          })}</p> */}
-          {/* <p>{props.products}</p> */}
+            <p className={classes.Name}> <strong>{props.name}</strong></p> 
+            <p className={classes.Others}> <strong>USD {Number.parseFloat( props.revenue).toFixed( 2 )}</strong></p>
+            <p className={classes.Others}> <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong></p>
+            <button onClick={()=>{props.onRemoveCustomer(props.id)}}>DELETE</button>
+            <button onClick={()=>{props.editingHandler(props)}}>EDIT</button>
         </div>
     );
 };
 
 const mapStateToProps = state => {
     return {
-     
       loading: state.customer.loading,
     };
   };
   
   const mapDispatchToProps = dispatch => {
     return {
-      onRemoveCustomer: (id) =>
-        dispatch(actions.removeCustomer(id))
+      onRemoveCustomer: (id) => dispatch(actions.removeCustomer(id)),
     };
+    
   };
   
   export default connect(

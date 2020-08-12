@@ -3,11 +3,15 @@
 }
 
 .Sidebar{
-    width: 20%;
+    width: 25%;
     display: inline-block;
 }
+.WidthMaker1{
+    display: inline-block;
+    width: 25%;
+}
 .Customers{
-    width: 65%;
+    width: 60%;
     display: inline-block;
     border-left: 1px solid #d8d8d8; border-right: 1px solid #d8d8d8;
     border-bottom: 1px solid #d8d8d8;
@@ -22,6 +26,7 @@
 
 .FilterDiv{
     display: inline-block;
+    margin-bottom: 10px;
 }
 .FilterDiv button{
     border: none;
@@ -49,7 +54,7 @@
     margin-top: 15px;
     margin-right: 10px;
 }
-.HeadDiv p{
+.Name , .Others{
     display: inline-block;
     width: 20%;
     overflow: hidden;
@@ -58,3 +63,44 @@
     color: #36414C;
 }
 
+
+
+@media(max-width:1000px){
+    .Sidebar{
+        width: 10%;
+    }
+    .Customers{
+        width: 80%;
+    }
+    
+}
+
+@media(max-width:1250px){
+    .WidthMaker1{
+        display: none;
+    }
+}
+
+@media(max-width:700px){
+    .Others {
+        display: none;
+    }
+    .Name{
+        width:30%
+    }
+    
+}
+@media(max-width:300px){
+    .Others {
+        display: none;
+    }
+    .Name{
+        width:50%
+    }
+    .NameFilter , .WorkerFilter{
+        width:70%;
+    }
+    .FilterDiv{
+        display: none;
+    }
+}

@@ -7,10 +7,11 @@
 }
 .Customer input{
     float: left;
-    margin-top: 18px;
+    margin-top: 15px;
     margin-right: 10px;
+    height: 10px;
 }
-.Customer p{
+.Name , .Others{
     display: inline-block;
     width: 20%;
     overflow: hidden;
@@ -19,10 +20,35 @@
     color: #36414C;
 }
 
+
 .Customer button{
     border: 1px solid gray;
     border-radius: 2px;
     background-color: rgba(24, 161, 216, 0.966);
     color:white;
     float: right;
+    margin-top: 12px;
+    margin-right: 5px;
+}
+
+@media(max-width:700px){
+    .Others {
+        display: none;
+    }
+    .Name{
+        width:20%
+    }
+    
+}
+@media(max-width:300px){
+    .Others {
+        display: none;
+    }
+    .Name{
+        width:50%
+    }
+    .Customer button{
+        display: none;
+    }
+    
 }

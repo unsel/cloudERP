@@ -40,6 +40,51 @@ export const addCustomerInit = () => {
         type: actionTypes.ADD_CUSTOMER_INIT
     };
 };
+
+export const editCustomerSuccess = ( id, customerData ) => {
+    return {
+        type: actionTypes.EDIT_CUSTOMER_SUCCESS,
+        customerId: id,
+        customerData: customerData
+    };
+};
+
+export const editCustomerFail = ( error ) => {
+    return {
+        type: actionTypes.EDIT_CUSTOMER_FAIL,
+        error: error
+    };
+}
+
+export const editCustomerStart = () => {
+    return {
+        type: actionTypes.EDIT_CUSTOMER_START
+    };
+};
+
+export const editCustomer = ( customerId,customer) => {
+    return dispatch => {
+        dispatch( editCustomerStart() );
+       
+        axios.put(`/Customers/${customerId}.json`,customer)
+            .then( response => {
+                dispatch(editCustomerSuccess(customerId,customer) );
+            } )
+            .catch( error => {
+                dispatch(editCustomerFail( error ) );
+            } );
+    };
+};
+
+export const editCustomerInit = () => {
+    return {
+        type: actionTypes.EDIT_CUSTOMER_INIT
+    };
+};
+
+
+
+
 export const removeCustomerSuccess = ( id, customerData ) => {
     return {
         type: actionTypes.REMOVE_CUSTOMER_SUCCESS,
@@ -81,7 +126,6 @@ export const removeCustomerInit = () => {
         type: actionTypes.REMOVE_CUSTOMER_INIT
     };
 };
-
 
 export const fetchCustomersSuccess = ( customers ) => {
     return {

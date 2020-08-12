@@ -8,13 +8,21 @@
 
 h2{
     display: inline;
+    font-weight: 600;
+    color: #36414c;
+}
+.TempDiv{
+    display: inline-block;
+    width: 15%;
 }
 .First{
-    width:50%;
+    display: inline-block;
+    width: 45%;
+    text-align: left;
 }
 .Buttons{
-    float: right;
-    width: 50%;
+    display: inline-block;
+    width: 40%;
 }
 .Buttons button{
     margin: 5px;

@@ -27,6 +27,26 @@ const addCustomerSuccess = ( state, action ) => {
 const addCustomerFail = ( state, action ) => {
     return updateObject( state, { loading: false } );
 };
+const editCustomerInit = ( state, action ) => {
+    return updateObject( state, { added: false } );
+};
+
+const editCustomerStart = ( state, action ) => {
+    return updateObject( state, { loading: true } );
+};
+
+const editCustomerSuccess = ( state, action ) => {
+    const newCustomer = updateObject( action.customerData, { id: action.customerId } );
+    return updateObject( state, {
+        loading: false,
+        added: true,
+        customers: state.customers.filter(e=>e.id!==action.customerId).concat( newCustomer )
+    } );
+};
+
+const editCustomerFail = ( state, action ) => {
+    return updateObject( state, { loading: false } );
+};
 const removeCustomerInit = ( state, action ) => {
     return updateObject( state, { added: false } );
 };
@@ -69,6 +89,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADD_CUSTOMER_START: return addCustomerStart( state, action );
         case actionTypes.ADD_CUSTOMER_SUCCESS: return addCustomerSuccess( state, action )
         case actionTypes.ADD_CUSTOMER_FAIL: return addCustomerFail( state, action );
+        case actionTypes.EDIT_CUSTOMER_INIT: return editCustomerInit( state, action );
+        case actionTypes.EDIT_CUSTOMER_START: return editCustomerStart( state, action );
+        case actionTypes.EDIT_CUSTOMER_SUCCESS: return editCustomerSuccess( state, action )
+        case actionTypes.EDIT_CUSTOMER_FAIL: return editCustomerFail( state, action );
         case actionTypes.REMOVE_CUSTOMER_INIT: return removeCustomerInit( state, action );
         case actionTypes.REMOVE_CUSTOMER_START: return removeCustomerStart( state, action );
         case actionTypes.REMOVE_CUSTOMER_SUCCESS: return removeCustomerSuccess( state, action )
