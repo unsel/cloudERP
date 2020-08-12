@@ -12,6 +12,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Customers.module.css';
 import Header from '../../components/Header/Header';
 import Modal from '../../components/UI/Modal/Modal';
+import Dropdown from '../../components/UI/Dropdown/Dropdown';
 
 
 const Customers = props => {
@@ -128,6 +129,7 @@ const Customers = props => {
 
             </div>
             <div className={classes.Customers}>
+            <Dropdown />
               {filterForm}
               {headDiv}
               {customers}
