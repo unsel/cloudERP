@@ -69,6 +69,7 @@ const AddCustomer = props => {
     })
     setCustomerForm(updatedForm)
   }
+  
   const addCustomerHandler = event => {
     // event.preventDefault();
 
@@ -86,7 +87,24 @@ const AddCustomer = props => {
     props.addedNew();
     clearForm();
   };
+  const addExamplesHandler = event => {
+    // event.preventDefault();
 
+    const info=[
+                  {name:'Customer1',revenue:10,workers:11},
+                  {name:'Customer2',revenue:20,workers:22},
+                  {name:'Customer3',revenue:30,workers:33},
+                  {name:'Customer4',revenue:40,workers:44},
+                  {name:'Customer5',revenue:50,workers:55},
+                  {name:'Customer6',revenue:60,workers:66},
+                  {name:'Customer7',revenue:70,workers:77},
+                ]
+    info.forEach(i=>{
+      props.onAddCustomer(i);
+    })
+    props.addedNew();
+    clearForm();
+  };
   
   const inputChangedHandler = (event, inputIdentifier) => {
     const updatedFormElement = updateObject(customerForm[inputIdentifier], {
@@ -145,6 +163,8 @@ const AddCustomer = props => {
         <button className={classes.SaveBtn} onClick={()=>addCustomerHandler()} disabled={!formIsValid}>Save</button>
         <button className={classes.CloseBtn} onClick={()=> props.closeNew()}>Close</button>
         <button className={classes.ResetBtn} onClick={()=>clearForm()} >Reset</button>
+        <button className={classes.SaveBtn} onClick={()=>addExamplesHandler()}>AddExamples</button>
+        
       </div>
       {form}
     </div>  
