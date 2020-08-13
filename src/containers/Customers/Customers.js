@@ -9,10 +9,12 @@ import axios from '../../axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import classes from './Customers.module.css';
+
+import classes from './customers.module.css';
 import Header from '../../components/Header/Header';
 import Modal from '../../components/UI/Modal/Modal';
-import Dropdown from '../../components/UI/Dropdown/Dropdown';
+
+// import Dropdown from 'react-bootstrap/Dropdown';
 
 
 const Customers = props => {
@@ -24,10 +26,17 @@ const Customers = props => {
   const [editForm,setEditForm] = useState('initial')
   const [sortFilter,setSortFilter] = useState("");
   const [sortOrder,setSortOrder] = useState(1);
+  const [selectedItems,setSelectedItems] = useState([])
+  // const [checkAll,setCheckAll] = useState(false)
 
   useEffect(() => {
     onFetchCustomers(/*props.token, props.userId*/);
   }, [onFetchCustomers]);
+
+  // useEffect(()=>{
+  //   setSelectedItems([]);
+  //   [...props.customers].forEach(customer=>setSelectedItems(selectedItems => [...selectedItems,customer.id]));
+  // },[props.customers])
 
   const sortBy = (a,b) => {
     if(sortFilter === "name"){
@@ -35,6 +44,26 @@ const Customers = props => {
     } else if (sortFilter ==="workers" || sortFilter ==="revenue"){
       return +a[sortFilter] > +b[sortFilter] ? sortOrder:-sortOrder;
     }
+  }
+
+  const handleCheckbox = (value,id) =>{
+    if(value){
+      setSelectedItems(selectedItems => [...selectedItems,id]);
+    } else {
+      let array = [...selectedItems];
+      let index = array.indexOf(id);
+      if (index !== -1){
+        array.splice(index,1);
+        setSelectedItems(array)
+      }
+    }
+  }
+
+  const deleteSelected = () => {
+    [...selectedItems].forEach(id=>{
+      props.onRemoveCustomer(id)
+    });
+    setSelectedItems([]);
   }
 
   const editingHandler = ( customerData ) => {
@@ -57,6 +86,8 @@ const Customers = props => {
         workers={customer.workers}
         id={customer.id}
         editingHandler={(customerData)=>editingHandler(customerData)}
+        handleCheckbox={(value,id)=>handleCheckbox(value,id)}
+        // checked = {true}
         // products={(Object.keys(customer.products)).map((item,i)=>{
         //   return <p>{item}</p>
         // })}
@@ -126,10 +157,10 @@ const Customers = props => {
             refreshHandler={()=>onFetchCustomers()}/>
           <div className={classes.Content}>
             <div className={classes.Sidebar}>
-
+              <button onClick={()=>deleteSelected()}>DeleteSelected</button>
             </div>
             <div className={classes.Customers}>
-            <Dropdown />
+              {selectedItems}
               {filterForm}
               {headDiv}
               {customers}
@@ -148,7 +179,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchCustomers: (/*token, userId*/) =>dispatch(actions.fetchCustomers(/*token, userId*/))
+    onFetchCustomers: (/*token, userId*/) =>dispatch(actions.fetchCustomers(/*token, userId*/)),
+    onRemoveCustomer: (id) => dispatch(actions.removeCustomer(id))
   };
 };
 

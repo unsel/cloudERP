@@ -5,7 +5,7 @@
     margin: 4px auto;
     box-sizing: border-box;
 }
-.Customer input{
+.Input{
     float: left;
     margin-top: 15px;
     margin-right: 10px;
@@ -21,7 +21,7 @@
 }
 
 
-.Customer button{
+.Buttons{
     border: 1px solid gray;
     border-radius: 2px;
     background-color: rgba(24, 161, 216, 0.966);

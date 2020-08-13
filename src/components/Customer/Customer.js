@@ -8,17 +8,15 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import classes from './Customer.module.css';
 
 const Customer = ( props ) => {
-    
-
 
     return (
         <div className={classes.Customer}>
-            <input type="checkbox"/>
+            <input checked={props.checked} onChange={(e)=>props.handleCheckbox(e.target.checked,props.id)} className={classes.Input} type="checkbox"/>
             <p className={classes.Name}> <strong>{props.name}</strong></p> 
             <p className={classes.Others}> <strong>USD {Number.parseFloat( props.revenue).toFixed( 2 )}</strong></p>
             <p className={classes.Others}> <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong></p>
-            <button onClick={()=>{props.onRemoveCustomer(props.id)}}>DELETE</button>
-            <button onClick={()=>{props.editingHandler(props)}}>EDIT</button>
+            <button className={classes.Buttons} onClick={()=>{props.onRemoveCustomer(props.id)}}>DELETE</button>
+            <button className={classes.Buttons} onClick={()=>{props.editingHandler(props)}}>EDIT</button>
         </div>
     );
 };

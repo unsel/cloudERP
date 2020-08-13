@@ -6,7 +6,8 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 
 import thunk from 'redux-thunk';
 
-import './index.css';
+import './index.module.css';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import customerReducer from './store/reducers/customer';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from '../../UI/Spinner/Spinner';
-import classes from './AddCustomer.module.css';
+import classes from './addCustomer.module.css';
 import axios from '../../../axios';
 import Input from '../../UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
