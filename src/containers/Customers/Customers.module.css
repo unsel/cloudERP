@@ -55,6 +55,11 @@
     box-sizing: border-box;
     background-color: #F7FAFC;
 }
+.HeadDiv p{
+    color:#8D99A6;
+    /* font-size: 12px; */
+
+}
 .HeadDiv input{
     float: left;
     margin-top: 15px;

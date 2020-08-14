@@ -16,17 +16,18 @@ h2{
 }
 .First{
     display: inline-block;
-    width: 45%;
+    width: 41%;
     text-align: left;
 }
 .Buttons{
     display: inline-block;
-    width: 40%;
+    width: 44%;
     
 }
 .Buttons .First2,.NewBtn{
     margin: 4px;
     padding: 3px 10px;
+    padding-bottom: 4px;
     border: none;
     border-radius: 3px;
     height: 2em;
@@ -35,6 +36,21 @@ h2{
 }
 
 .NewBtn{
+    background-color: #5e64ff;
+    color: white;
+}
+
+.DropBtn{
+    display: inline-block;
+}
+.DropBtn button{
+    margin: 4px;
+    padding: 3px 10px;
+    padding-bottom: 4px;
+    border: none;
+    border-radius: 3px;
+    height: 2em;
+    font-size: 12px;
     background-color: #5e64ff;
     color: white;
 }

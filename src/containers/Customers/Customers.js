@@ -14,7 +14,8 @@ import classes from './customers.module.css';
 import Header from '../../components/Header/Header';
 import Modal from '../../components/UI/Modal/Modal';
 
-import Dropdown from 'react-bootstrap/Dropdown';
+import {Dropdown,DropdownButton} from 'react-bootstrap';
+
 
 
 const Customers = props => {
@@ -100,7 +101,19 @@ const Customers = props => {
   }
 
   
-
+  let dropdown = <DropdownButton
+                  alignRight
+                  title="Actions"
+                  id="dropdown-menu-align-right"
+                  size="sm"
+                  variant="primary"
+                >
+                  <Dropdown.Item eventKey="1" onClick={()=>deleteSelected()}>Delete</Dropdown.Item>
+                  <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
+                  <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
+                </DropdownButton>
   let customers = <Spinner />;
   if (!props.loading) {
     customers= [...props.customers].sort(sortBy)
@@ -179,10 +192,12 @@ const Customers = props => {
           <Header
             name = {"Customers"}
             addingHandler = {()=>addingNewHandler()} 
-            refreshHandler={()=>refreshHandler()}/>
+            refreshHandler={()=>refreshHandler()}
+            dropdown={selectedItems.length?dropdown:null}/>
           <div className={classes.Content}>
             <div className={classes.Sidebar}>
               <button onClick={()=>checkAllHandler()}>SelectAll </button>
+            
               {checkAll?<div>true</div>:<div>false</div>}
               {props.customers.length}
               {selectedItems.length}

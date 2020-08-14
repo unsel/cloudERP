@@ -10,7 +10,8 @@ const Header = props => {
           <div className={classes.Buttons}>
                 <button className={classes.First2}>Menu</button>
                 <button className={classes.First2} onClick={()=>{props.refreshHandler()}}>Refresh</button>
-                <button className={classes.NewBtn} onClick={props.addingHandler}>New</button>
+                {props.dropdown?<div className={classes.DropBtn}>{props.dropdown}</div>:<button className={classes.NewBtn} onClick={props.addingHandler}>New</button>}
+                
           </div>    
         </div>
     )
