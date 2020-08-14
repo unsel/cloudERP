@@ -85,7 +85,7 @@ const Customers = props => {
     clearChecked();
   }
   const refreshHandler = () => {
-    setSelectedItems([]);
+    clearChecked();
     onFetchCustomers();
   }
 
@@ -98,6 +98,11 @@ const Customers = props => {
       [...props.customers].forEach(customer=>setSelectedItems(selectedItems => [...selectedItems,customer.id]));
       setCheckAll(!checkAll);
     }
+  }
+
+  const deleteItem = (id) =>{
+    props.onRemoveCustomer(id);
+    clearChecked();
   }
 
   
@@ -128,6 +133,7 @@ const Customers = props => {
         editingHandler={(customerData)=>editingHandler(customerData)}
         handleCheckbox={(value,id)=>handleCheckbox(value,id)}
         checked = {checkAll?true:null}
+        deleteItem = {(id)=>deleteItem(id)}
         // products={(Object.keys(customer.products)).map((item,i)=>{return <p>{item}</p>})}
       />
     ));

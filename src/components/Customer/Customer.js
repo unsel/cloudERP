@@ -18,7 +18,7 @@ const Customer = ( props ) => {
             <p className={classes.Name}> <strong>{props.name}</strong></p> 
             <p className={classes.Others}> <strong>USD {Number.parseFloat( props.revenue).toFixed( 2 )}</strong></p>
             <p className={classes.Others}> <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong></p>
-            <button className={classes.Buttons} onClick={()=>{props.onRemoveCustomer(props.id)}}>DELETE</button>
+            <button className={classes.Buttons} onClick={()=>{props.deleteItem(props.id)}}>DELETE</button>
             <button className={classes.Buttons} onClick={()=>{props.editingHandler(props)}}>EDIT</button>
         </div>
     );
