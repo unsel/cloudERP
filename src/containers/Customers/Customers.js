@@ -20,8 +20,8 @@ import {Dropdown,DropdownButton} from 'react-bootstrap';
 
 const Customers = props => {
   const { onFetchCustomers } = props;
-  const [nameFilter,setNameFilter] = useState("");
-  const [workerFilter,setWorkerFilter] = useState("");
+  const [nameFilter,setNameFilter] = useState(""); const[tempNameFilter,setTempNameFilter]=useState("");
+  const [workerFilter,setWorkerFilter] = useState(""); const[tempWorkerFilter,setTempWorkerFilter]=useState("");
   const [addingNew,setAddingNew] = useState(false);
   const [editing,setEditing] = useState(false);
   const [editForm,setEditForm] = useState('initial')
@@ -33,13 +33,46 @@ const Customers = props => {
   useEffect(() => {
     onFetchCustomers(/*props.token, props.userId*/);
   }, [onFetchCustomers]);
-
-  const sortBy = (a,b) => {
+  
+const sortBy = (a,b) => {
     if(sortFilter === "name"){
     return a[sortFilter] > b[sortFilter] ? sortOrder:-sortOrder;
     } else if (sortFilter ==="workers" || sortFilter ==="revenue"){
       return +a[sortFilter] > +b[sortFilter] ? sortOrder:-sortOrder;
     }
+  }
+
+  let dropdown = <DropdownButton
+                  alignRight
+                  title="Actions"
+                  id="dropdown-menu-align-right"
+                  size="sm"
+                  variant="primary"
+                >
+                  <Dropdown.Item eventKey="1" onClick={()=>deleteSelected()}>Delete</Dropdown.Item>
+                  <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
+                  <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
+                </DropdownButton>
+  let customers = <Spinner />;
+  if (!props.loading) {
+    customers= [...props.customers].sort(sortBy)
+            .filter(customer => (customer.name.includes(nameFilter) || +customer.workers < workerFilter) )
+            .map(customer => (
+      <Customer
+        key={customer.id}
+        name={customer.name}
+        revenue={customer.revenue}
+        workers={customer.workers}
+        id={customer.id}
+        editingHandler={(customerData)=>editingHandler(customerData)}
+        handleCheckbox={(value,id)=>handleCheckbox(value,id)}
+        checked = {checkAll?true:null}
+        deleteItem = {(id)=>deleteItem(id)}
+        // products={(Object.keys(customer.products)).map((item,i)=>{return <p>{item}</p>})}
+      />
+    ));
   }
 
   const clearChecked = () => {
@@ -96,6 +129,7 @@ const Customers = props => {
     } else {
       setSelectedItems([]);
       [...props.customers].forEach(customer=>setSelectedItems(selectedItems => [...selectedItems,customer.id]));
+      
       setCheckAll(!checkAll);
     }
   }
@@ -105,49 +139,22 @@ const Customers = props => {
     clearChecked();
   }
 
-  
-  let dropdown = <DropdownButton
-                  alignRight
-                  title="Actions"
-                  id="dropdown-menu-align-right"
-                  size="sm"
-                  variant="primary"
-                >
-                  <Dropdown.Item eventKey="1" onClick={()=>deleteSelected()}>Delete</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
-                  <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
-                </DropdownButton>
-  let customers = <Spinner />;
-  if (!props.loading) {
-    customers= [...props.customers].sort(sortBy)
-            .filter(customer => (customer.name.includes(nameFilter) || +customer.workers < workerFilter) )
-            .map(customer => (
-      <Customer
-        key={customer.id}
-        name={customer.name}
-        revenue={customer.revenue}
-        workers={customer.workers}
-        id={customer.id}
-        editingHandler={(customerData)=>editingHandler(customerData)}
-        handleCheckbox={(value,id)=>handleCheckbox(value,id)}
-        checked = {checkAll?true:null}
-        deleteItem = {(id)=>deleteItem(id)}
-        // products={(Object.keys(customer.products)).map((item,i)=>{return <p>{item}</p>})}
-      />
-    ));
-  }
-
   const resetFilters = () => {
     setSortFilter("");
   }
   const nameFilterChangedHandler= (e) => {
-    setNameFilter(e.target.value)
+    setTempNameFilter(e.target.value)
+  }
+  const searchNameFilter = (e) => {
+    if(e.key === 'Enter'){setNameFilter(e.target.value)}
   }
   const workerFilterChangedHandler= (e) => {
-    setWorkerFilter(e.target.value)
+    setTempWorkerFilter(e.target.value)
   }
+  const searchWorkerFilter = (e) => {
+    if(e.key === 'Enter'){setWorkerFilter(e.target.value)}
+  }
+  
   const addingNewHandler = (e) => {
     setAddingNew(true)
   }
@@ -161,8 +168,8 @@ const Customers = props => {
   let icon = (sortOrder === -1) ? <FontAwesomeIcon icon="arrow-down" onClick={()=>{sortOrderToggleHandler()}}/>:<FontAwesomeIcon icon="arrow-up" onClick={()=>{sortOrderToggleHandler()}}/>;
   let filterForm = (
     <div className={classes.FilterForm}>
-        <input className={classes.NameFilter} placeholder="Name" value={nameFilter} type="text" onChange={nameFilterChangedHandler}/>
-        <input className={classes.WorkerFilter} placeholder="Worker" value={workerFilter} type="number" onChange={workerFilterChangedHandler}/>
+        <input className={classes.NameFilter} placeholder="Name" value={tempNameFilter} type="text" onChange={nameFilterChangedHandler} onKeyDown={searchNameFilter}/>
+        <input className={classes.WorkerFilter} placeholder="Worker" value={tempWorkerFilter} type="number" onChange={workerFilterChangedHandler} onKeyDown={searchWorkerFilter}/>
         <div className={classes.WidthMaker1}></div>
         <span className={classes.FilterDiv}>
           <button>SetFilters</button>
