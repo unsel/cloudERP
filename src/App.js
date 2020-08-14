@@ -3,6 +3,8 @@ import { Route, Switch, Redirect} from 'react-router-dom';
 // import { connect } from 'react-redux';
 import Spinner from './components/UI/Spinner/Spinner';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faCheckSquare, faBell,faCaretDown,faArrowDown,faArrowUp,faSearch } from '@fortawesome/free-solid-svg-icons'

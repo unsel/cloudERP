@@ -1,5 +1,5 @@
 .Toolbar {
-    height: 50px;
+    height: 40px;
     width: 100%;
     position: fixed;
     top: 0;
@@ -29,7 +29,7 @@
 
 .Searchbar input[type=search] {
     float: right;
-    padding: 6px;
+    padding: 4px;
     border:1px solid #d8d8d8;
     border-radius: 6px;
     margin-top: 0px;
