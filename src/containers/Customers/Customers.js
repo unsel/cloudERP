@@ -27,16 +27,11 @@ const Customers = props => {
   const [sortFilter,setSortFilter] = useState("");
   const [sortOrder,setSortOrder] = useState(1);
   const [selectedItems,setSelectedItems] = useState([])
-  // const [checkAll,setCheckAll] = useState(false)
+  const [checkAll,setCheckAll] = useState(false)
 
   useEffect(() => {
     onFetchCustomers(/*props.token, props.userId*/);
   }, [onFetchCustomers]);
-
-  // useEffect(()=>{
-  //   setSelectedItems([]);
-  //   [...props.customers].forEach(customer=>setSelectedItems(selectedItems => [...selectedItems,customer.id]));
-  // },[props.customers])
 
   const sortBy = (a,b) => {
     if(sortFilter === "name"){
@@ -44,6 +39,11 @@ const Customers = props => {
     } else if (sortFilter ==="workers" || sortFilter ==="revenue"){
       return +a[sortFilter] > +b[sortFilter] ? sortOrder:-sortOrder;
     }
+  }
+
+  const clearChecked = () => {
+    setCheckAll(false);
+    setSelectedItems([]);
   }
 
   const handleCheckbox = (value,id) =>{
@@ -57,13 +57,19 @@ const Customers = props => {
         setSelectedItems(array)
       }
     }
+    if(selectedItems.length === 1){
+      setCheckAll(false)
+    }
+    if(selectedItems.length === props.customers.length-1){
+      setCheckAll(true)
+    }
   }
 
   const deleteSelected = () => {
     [...selectedItems].forEach(id=>{
       props.onRemoveCustomer(id)
     });
-    setSelectedItems([]);
+    clearChecked();
   }
 
   const editingHandler = ( customerData ) => {
@@ -73,6 +79,27 @@ const Customers = props => {
   const editingClosedHandler = (e) => {
     setEditing(false)
   }
+  const editingFinishedHandler = (e) => {
+    setEditing(false)
+    clearChecked();
+  }
+  const refreshHandler = () => {
+    setSelectedItems([]);
+    onFetchCustomers();
+  }
+
+  const checkAllHandler = () =>{
+    if(checkAll){
+      setSelectedItems([]);
+      setCheckAll(!checkAll);
+    } else {
+      setSelectedItems([]);
+      [...props.customers].forEach(customer=>setSelectedItems(selectedItems => [...selectedItems,customer.id]));
+      setCheckAll(!checkAll);
+    }
+  }
+
+  
 
   let customers = <Spinner />;
   if (!props.loading) {
@@ -87,10 +114,8 @@ const Customers = props => {
         id={customer.id}
         editingHandler={(customerData)=>editingHandler(customerData)}
         handleCheckbox={(value,id)=>handleCheckbox(value,id)}
-        // checked = {true}
-        // products={(Object.keys(customer.products)).map((item,i)=>{
-        //   return <p>{item}</p>
-        // })}
+        checked = {checkAll?true:null}
+        // products={(Object.keys(customer.products)).map((item,i)=>{return <p>{item}</p>})}
       />
     ));
   }
@@ -129,11 +154,10 @@ const Customers = props => {
   )
   const headDiv = (
     <div className={classes.HeadDiv}>
-            <input type="checkbox"/>
+            <input checked={checkAll && (selectedItems.length)} type="checkbox" onClick={()=>checkAllHandler()}/>
             <p className={classes.Name} onClick={()=>{setSortFilter("name")}}> <strong>Full Name</strong></p> 
             <p className={classes.Others} onClick={()=>{setSortFilter("revenue")}}> <strong>Revenue </strong></p>
             <p className={classes.Others} onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>
-          {/* <p>{props.products.map((item,i)=>{  return <p>Product {i} - {item.product1}</p>})}</p> */}{/* <p>{props.products}</p> */}
         </div>
   )
   return (
@@ -141,12 +165,13 @@ const Customers = props => {
           <Modal show={addingNew} modalClosed={()=>addingClosedHandler()}>
             <AddCustomer
               addedNew={()=>addingClosedHandler()}
-              closeNew={()=>addingClosedHandler()}/>
+              closeNew={()=>addingClosedHandler()}
+              clearChecked={()=>clearChecked()}/>
           </Modal>
           <Modal show={editing} modalClosed={()=>editingClosedHandler()}>
             <EditCustomer
               customerData={editForm}
-              editingFinished={()=>editingClosedHandler()}
+              editingFinished={()=>editingFinishedHandler()}
               editingClosed={()=>editingClosedHandler()}
               />
           </Modal>
@@ -154,9 +179,13 @@ const Customers = props => {
           <Header
             name = {"Customers"}
             addingHandler = {()=>addingNewHandler()} 
-            refreshHandler={()=>onFetchCustomers()}/>
+            refreshHandler={()=>refreshHandler()}/>
           <div className={classes.Content}>
             <div className={classes.Sidebar}>
+              <button onClick={()=>checkAllHandler()}>SelectAll </button>
+              {checkAll?<div>true</div>:<div>false</div>}
+              {props.customers.length}
+              {selectedItems.length}
               <button onClick={()=>deleteSelected()}>DeleteSelected</button>
             </div>
             <div className={classes.Customers}>

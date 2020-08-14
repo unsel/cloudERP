@@ -85,6 +85,7 @@ const AddCustomer = props => {
 
     props.onAddCustomer(customer /*, props.token*/);
     props.addedNew();
+    props.clearChecked();
     clearForm();
   };
   const addExamplesHandler = event => {
