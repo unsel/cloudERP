@@ -96,6 +96,7 @@ const EditCustomer = props => {
     props.onEditCustomer(props.customerData.id,customer);
     props.editingFinished();
     clearForm();
+    setFormIsValid(false)
   };
 
   

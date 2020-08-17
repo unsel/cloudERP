@@ -50,8 +50,8 @@ const sortBy = (a,b) => {
                   variant="primary"
                 >
                   <Dropdown.Item eventKey="1" onClick={()=>deleteSelected()}>Delete</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
-                  <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
+                  <Dropdown.Item eventKey="2">Edit</Dropdown.Item>
+                  <Dropdown.Item eventKey="3">Print</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
                 </DropdownButton>
@@ -94,7 +94,7 @@ const sortBy = (a,b) => {
     if(selectedItems.length === 1){
       setCheckAll(false)
     }
-    if(selectedItems.length === props.customers.length-1){
+    if(selectedItems.length === [...props.customers].filter(customer => (customer.name.includes(nameFilter) || +customer.workers < workerFilter) ).length-1){
       setCheckAll(true)
     }
   }
@@ -128,7 +128,7 @@ const sortBy = (a,b) => {
       setCheckAll(!checkAll);
     } else {
       setSelectedItems([]);
-      [...props.customers].forEach(customer=>setSelectedItems(selectedItems => [...selectedItems,customer.id]));
+      [...props.customers].filter(customer => (customer.name.includes(nameFilter) || +customer.workers < workerFilter) ).forEach(customer=>setSelectedItems(selectedItems => [...selectedItems,customer.id]));
       
       setCheckAll(!checkAll);
     }
@@ -146,14 +146,22 @@ const sortBy = (a,b) => {
     setTempNameFilter(e.target.value)
   }
   const searchNameFilter = (e) => {
-    if(e.key === 'Enter'){setNameFilter(e.target.value)}
+    if(e.key === 'Enter'){
+      setNameFilter(e.target.value)
+      refreshHandler()    // bad practice ?
+    }  
   }
   const workerFilterChangedHandler= (e) => {
     setTempWorkerFilter(e.target.value)
   }
   const searchWorkerFilter = (e) => {
-    if(e.key === 'Enter'){setWorkerFilter(e.target.value)}
+    if(e.key === 'Enter'){
+      setWorkerFilter(e.target.value)
+      refreshHandler()
+    }
   }
+  
+  
   
   const addingNewHandler = (e) => {
     setAddingNew(true)

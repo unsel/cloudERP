@@ -87,6 +87,7 @@ const AddCustomer = props => {
     props.addedNew();
     props.clearChecked();
     clearForm();
+    setFormIsValid(false)
   };
   const addExamplesHandler = event => {
     // event.preventDefault();
