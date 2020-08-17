@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import axios from '../../axios';
 import * as actions from '../../store/actions/index';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 import classes from './Customer.module.css';
   
@@ -16,8 +18,9 @@ const Customer = ( props ) => {
         <div className={classes.Customer}>
             <input  checked={deneme} onClick={()=>{setDeneme(!deneme)}} onChange={(e)=>props.handleCheckbox(e.target.checked,props.id)} className={classes.Input} type="checkbox"/>
             <p className={classes.Name}> <strong>{props.name}</strong></p> 
-            <p className={classes.Others}> <strong>USD {Number.parseFloat( props.revenue).toFixed( 2 )}</strong></p>
+            <p className={classes.Others}> <strong><FontAwesomeIcon icon="circle" color='#5e64ff' size='xs'/>&nbsp;{props.status}</strong></p>
             <p className={classes.Others}> <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong></p>
+            <p className={classes.Others}> <strong>{props.type}</strong></p>
             <button className={classes.Buttons} onClick={()=>{props.deleteItem(props.id)}}>DELETE</button>
             <button className={classes.Buttons} onClick={()=>{props.editingHandler(props)}}>EDIT</button>
         </div>

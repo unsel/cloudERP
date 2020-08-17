@@ -43,3 +43,17 @@
 .ResetBtn{
     float: right;
 }
+
+
+.form2{
+    border-top: 1px solid #e5e5e5;
+    margin: 15px 0px;
+}
+.form2 p{
+    font-weight: 600;
+    font-size: 13px;
+    color: gray;
+    display: block;
+    margin-bottom: 15px;
+    margin-left: 11px;
+}

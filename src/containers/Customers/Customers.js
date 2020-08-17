@@ -66,6 +66,10 @@ const sortBy = (a,b) => {
         revenue={customer.revenue}
         workers={customer.workers}
         id={customer.id}
+        type={customer.type}
+        status={customer.status}
+        mail={customer.mail}
+        phoneNumber={customer.phoneNumber}
         editingHandler={(customerData)=>editingHandler(customerData)}
         handleCheckbox={(value,id)=>handleCheckbox(value,id)}
         checked = {checkAll?true:null}
@@ -142,6 +146,11 @@ const sortBy = (a,b) => {
   const resetFilters = () => {
     setSortFilter("");
   }
+  const applyFilters = () => {
+    setNameFilter(tempNameFilter);
+    setWorkerFilter(tempWorkerFilter);
+    refreshHandler();
+  }
   const nameFilterChangedHandler= (e) => {
     setTempNameFilter(e.target.value)
   }
@@ -180,7 +189,7 @@ const sortBy = (a,b) => {
         <input className={classes.WorkerFilter} placeholder="Worker" value={tempWorkerFilter} type="number" onChange={workerFilterChangedHandler} onKeyDown={searchWorkerFilter}/>
         <div className={classes.WidthMaker1}></div>
         <span className={classes.FilterDiv}>
-          <button>SetFilters</button>
+          <button onClick={()=>{applyFilters()}}>ApplyFilters</button>
           <button onClick={()=>{resetFilters()}}>ResetFilters</button>
           {icon}
         </span>
@@ -188,10 +197,16 @@ const sortBy = (a,b) => {
   )
   const headDiv = (
     <div className={classes.HeadDiv}>
-            <input checked={checkAll && (selectedItems.length)} type="checkbox" onClick={()=>checkAllHandler()}/>
+          <input checked={checkAll && (selectedItems.length)} type="checkbox" onClick={()=>checkAllHandler()}/>
+      {selectedItems.length === 0 ? 
+          <div>
             <p className={classes.Name} onClick={()=>{setSortFilter("name")}}> <strong>Full Name</strong></p> 
-            <p className={classes.Others} onClick={()=>{setSortFilter("revenue")}}> <strong>Revenue </strong></p>
+            <p className={classes.Others} > <strong>Status </strong></p>
             <p className={classes.Others} onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>
+            <p className={classes.Others} > <strong>Type </strong></p>
+            </div>
+            : <p className={classes.Others}>{selectedItems.length + ' items selected'}</p>
+                        }
         </div>
   )
   return (

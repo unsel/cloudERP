@@ -9,6 +9,7 @@ const input = ( props ) => {
     if (props.invalid && props.shouldValidate && props.touched) {
         inputClasses.push(classes.Invalid);
     }
+    const headClass = [classes.Input,(props.label === 'Mail' || props.label === 'PhoneNo') ? classes.SecondForm : null]
 
     switch ( props.elementType ) {
         case ( 'input' ):
@@ -48,7 +49,7 @@ const input = ( props ) => {
     }
 
     return (
-        <div className={classes.Input}>
+        <div className={headClass.join(' ')}>
             <label className={classes.Label}>{props.label}</label>
             {inputElement}
         </div>

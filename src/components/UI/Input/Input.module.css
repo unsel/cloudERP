@@ -5,9 +5,13 @@
     margin-right: 5px;
     box-sizing: border-box;
 }
+.SecondForm{
+    width: 48%;
+    display: inline-block;
+}
 
 .Label {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 13px;
     color: gray;
     display: block;
@@ -20,7 +24,7 @@
     border-radius: 6px;
     background-color: #fffdf4;
     font: inherit;
-    padding: 6px 10px;
+    padding: 3px 10px;
     display: block;
     width: 100%;
     box-sizing: border-box;
@@ -34,4 +38,8 @@
 .Invalid {
     border: 1px solid red;
     background-color: #FDA49A;
+}
+
+.Kale{
+    background-color: blue;
 }

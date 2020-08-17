@@ -8,6 +8,7 @@ import Input from '../../UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
 import { updateObject, checkValidity } from '../../../shared/utility';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const EditCustomer = props => {
   
@@ -58,17 +59,60 @@ const EditCustomer = props => {
         valid: true,
         touched: false
       },
-      
+      type : {
+        elementType:'select',
+        elementConfig:{
+            options:[{value:'Company',displayValue:'Company'},
+                     {value:'Individual',displayValue:'Individual'}],
+            placehold:'Type'
+            
+        },
+        value: 'Company',
+        validation:{}, valid:true
+      }, 
   });
+  const [contactForm,setContactForm] = useState({
+    mail: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'email',
+        placehold: 'Mail'
+      },
+      value: '',
+      validation: { required: false , isEmail:true },
+      valid: true, touched: false
+    },
+    phoneNumber: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'number',
+        placehold: 'PhoneNo'
+      },
+      value: '',
+      validation: { required: false,minLength:3 },
+      valid: true, touched: false
+    }
+  });
+
   const [formIsValid, setFormIsValid] = useState(false);
+  const [form2IsValid,setForm2IsValid] = useState(true)
+  const [contactFormOpen,setContactFormOpen] = useState(false)
+
 
   useEffect(()=>{
     const updatedForm = updateObject(customerForm,{
         name: updateObject(customerForm.name,{value:props.customerData.name}),
         workers:updateObject(customerForm.workers,{value:props.customerData.workers}),
-        revenue:updateObject(customerForm.revenue,{value:props.customerData.revenue})
+        revenue:updateObject(customerForm.revenue,{value:props.customerData.revenue}),
+        type:updateObject(customerForm.type,{value:props.customerData.type})
+      })
+    const updatedForm2 = updateObject(contactForm,{
+        mail:updateObject(contactForm.mail,{value:props.customerData.mail}),
+        phoneNumber:updateObject(contactForm.phoneNumber,{value:props.customerData.phoneNumber})
       })
       setCustomerForm(updatedForm)
+      setContactForm(updatedForm2)
+      
       // eslint-disable-next-line
   },[props.customerData])
 
@@ -76,9 +120,15 @@ const EditCustomer = props => {
     const updatedForm = updateObject(customerForm,{
       name: updateObject(customerForm.name,{value:""}),
       workers:updateObject(customerForm.workers,{value:''}),
-      revenue:updateObject(customerForm.revenue,{value:''})
+      revenue:updateObject(customerForm.revenue,{value:''}),
+      // type:updateObject(customerForm.type,{value:'Individual'})
+    })
+    const updatedForm2 = updateObject(contactForm,{
+      mail:updateObject(contactForm.mail,{value:''}),
+      phoneNumber:updateObject(contactForm.phoneNumber,{value:''})
     })
     setCustomerForm(updatedForm)
+    setContactForm(updatedForm2)
   }
   const editCustomerHandler = event => {
     // event.preventDefault();
@@ -87,29 +137,36 @@ const EditCustomer = props => {
     for (let formElementIdentifier in customerForm) {
       formData[formElementIdentifier] = customerForm[formElementIdentifier].value;
     }
+    for (let formElementIdentifier in contactForm) {
+      formData[formElementIdentifier] = contactForm[formElementIdentifier].value;
+    }
     const customer = {
       name:formData.name,
       revenue:formData.revenue,
       workers:formData.workers,
+      type:formData.type,
+      status:'Enabled',
+      mail:formData.mail,
+      phoneNumber:formData.phoneNumber
     };
 
     props.onEditCustomer(props.customerData.id,customer);
     props.editingFinished();
     clearForm();
-    setFormIsValid(false)
+    setFormIsValid(false); setForm2IsValid(true);
   };
 
   
-  const inputChangedHandler = (event, inputIdentifier) => {
-    const updatedFormElement = updateObject(customerForm[inputIdentifier], {
+  const inputChangedHandler = (event, inputIdentifier,form) => {
+    const updatedFormElement = updateObject(form[inputIdentifier], {
       value: event.target.value,
       valid: checkValidity(
         event.target.value,
-        customerForm[inputIdentifier].validation
+        form[inputIdentifier].validation
       ),
       touched: true
     });
-    const updatedCustomerForm = updateObject(customerForm, {
+    const updatedCustomerForm = updateObject(form, {
       [inputIdentifier]: updatedFormElement
     });
 
@@ -117,17 +174,21 @@ const EditCustomer = props => {
     for (let inputIdentifier in updatedCustomerForm) {
       formIsValid = updatedCustomerForm[inputIdentifier].valid && formIsValid;
     }
-    setCustomerForm(updatedCustomerForm);
-    setFormIsValid(formIsValid);
+    if(form === customerForm){setCustomerForm(updatedCustomerForm);setFormIsValid(formIsValid);}
+    if(form === contactForm){setContactForm(updatedCustomerForm);setForm2IsValid(formIsValid);}
   };
 
-  const formElementsArray = [];
-  for (let key in customerForm) {
-    formElementsArray.push({
-      id: key,
-      config: customerForm[key]
-    });
+  const formElementsArray = []; const formElementsArray2=[];
+  const arrayFiller = (customerForm,formElementsArray) => {
+    for (let key in customerForm) {
+      formElementsArray.push({
+        id: key,
+        config: customerForm[key]
+      });
+    }
   }
+  arrayFiller(customerForm,formElementsArray)
+  arrayFiller(contactForm,formElementsArray2)
   let form = (
     <form onSubmit={editCustomerHandler}>
       {formElementsArray.map(formElement => (
@@ -140,10 +201,31 @@ const EditCustomer = props => {
           invalid={!formElement.config.valid}
           shouldValidate={formElement.config.validation}
           touched={formElement.config.touched}
-          changed={event => inputChangedHandler(event, formElement.id)}
+          changed={event => inputChangedHandler(event, formElement.id,customerForm)}
         />
       ))}
     </form>
+  );
+  let form2 = (
+    <div className={classes.form2}>
+      <p className={classes.FormHeader} >PRIMARY CONTACT DETAILS &nbsp; <FontAwesomeIcon onClick={()=>{setContactFormOpen(!contactFormOpen)}} icon={contactFormOpen?'angle-up':'angle-down'}/></p>
+      {contactFormOpen ? 
+    <form  onSubmit={editCustomerHandler}>
+      {formElementsArray2.map(formElement => (
+        <Input
+          key={formElement.id}
+          label={formElement.config.elementConfig.placehold}
+          elementType={formElement.config.elementType}
+          elementConfig={formElement.config.elementConfig}
+          value={formElement.config.value}
+          invalid={!formElement.config.valid}
+          shouldValidate={formElement.config.validation}
+          touched={formElement.config.touched}
+          changed={event => inputChangedHandler(event, formElement.id,contactForm)}
+        />
+      ))}
+    </form> : null}
+    </div>
   );
   if (props.loading) {
     form = <Spinner />;
@@ -154,11 +236,12 @@ const EditCustomer = props => {
     <div className={classes.Form}>
       <div className={classes.HeadDiv}>
         <span className={classes.Text1}><strong>Editing Customer</strong></span>
-        <button className={classes.SaveBtn} onClick={()=>editCustomerHandler()} disabled={!formIsValid}>Save</button>
+        <button className={classes.SaveBtn} onClick={()=>editCustomerHandler()} disabled={!formIsValid || !form2IsValid}>Save</button>
         <button className={classes.CloseBtn} onClick={()=> props.editingClosed()}>Close</button>
         <button className={classes.ResetBtn} onClick={()=>clearForm()} >Reset</button>
       </div>
       {form}
+      {form2}
     </div>  
   );
 };

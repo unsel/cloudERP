@@ -7,7 +7,7 @@
     border-radius: 3px;
     box-shadow: 1px 1px 1px black;
     left: calc(30%);
-    top: 40px;
+    top: -170px;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
 }
@@ -20,7 +20,7 @@
 }
 @media (max-width: 900px) {
     .Modal {
-        width: 70%;
-        left: calc(15%);
+        width: 90%;
+        left: calc(5%);
     }
 }

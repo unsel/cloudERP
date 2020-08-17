@@ -10,7 +10,9 @@ export const checkValidity = ( value, rules ) => {
     if ( !rules ) {
         return true;
     }
-
+    if(!rules.required && value.length === 0){
+        return true;
+    }
     if ( rules.required ) {
         isValid = value.trim() !== '' && isValid;
     }
