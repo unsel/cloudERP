@@ -30,7 +30,8 @@ const Customers = props => {
   const [selectedItems,setSelectedItems] = useState([])
   const [checkAll,setCheckAll] = useState(false)
   const [formModalOpen,setFormModalOpen] = useState(false)   // Form Warning
-  const [formModalInfo,setFormModalInfo]= useState([]);
+  const [formMissingInfo,setFormMissingInfo]= useState([]);
+  const [formInvalidInfo,setFormInvalidInfo]= useState([]);
 
 
   useEffect(() => {
@@ -181,13 +182,19 @@ const sortBy = (a,b) => {
   const addingClosedHandler = (e) => {
     setAddingNew(false)
   }
+  const addedNewHandler = (e) => {
+    setAddingNew(false)
+    // setFormMissingInfo([]);
+    // setFormInvalidInfo([]);
+  }
   
   const sortOrderToggleHandler = () => {
     setSortOrder(-sortOrder);
   }
-  const formModalOpener = (b) => {
-    setFormModalInfo(b)
-    setFormModalOpen(true)
+  const formModalOpener = (a,b) => {
+    setFormMissingInfo(a);
+    setFormInvalidInfo(b);
+    setFormModalOpen(true);
   }
   let icon = (sortOrder === -1) ? <FontAwesomeIcon icon="arrow-down" onClick={()=>{sortOrderToggleHandler()}}/>:<FontAwesomeIcon icon="arrow-up" onClick={()=>{sortOrderToggleHandler()}}/>;
   let filterForm = (
@@ -222,23 +229,30 @@ const sortBy = (a,b) => {
           <Modal show={formModalOpen} modalClosed={()=>{setFormModalOpen(false)}} modalType='Modal2'>
               <div className={classes.FormModal}>
                 <div className={classes.HeadDiv}>
-                  <span className={classes.Text1}><strong><FontAwesomeIcon icon="circle" color="orange" size='xs'/> Missing Values Required</strong></span>
+                  <span className={classes.Text1}>
+                    {formMissingInfo[0] ? <strong><FontAwesomeIcon icon="circle" color="orange" size='xs'/> Missing Values Required</strong>
+                                      : <strong><FontAwesomeIcon icon="circle" color="red" size='xs'/> Message</strong>}
+                      
+                    </span>
+                      
                   <button className={classes.CloseBtn} onClick={()=>{setFormModalOpen(false)}}>Close</button>
                 </div>
                 <div className={classes.Missing}>
-                  <p>Following fields have missing values:</p>
+                  {formMissingInfo[0] ? <p>Following fields have missing values:</p> : <p>Following fields have invalid information:</p>}
                   <ul>
-                  {formModalInfo.map((el,i)=>{return <li>{el}</li>})}
+                  {formMissingInfo[0]  ? formMissingInfo.map((el,i)=>{return <li>{el}</li>})  
+                                       : formInvalidInfo.map((el,i)=>{return <li>{el}</li>}) }
+                  
                   </ul>
                 </div>
               </div>
           </Modal>
           <Modal show={addingNew} modalClosed={()=>addingClosedHandler() } modalType='Modal1'>
             <AddCustomer
-              addedNew={()=>addingClosedHandler()}
+              addedNew={()=>addedNewHandler()}
               closeNew={()=>addingClosedHandler()}
               clearChecked={()=>clearChecked()}
-              formModalOpener={(b)=>formModalOpener(b)}/>
+              formModalOpener={(a,b)=>formModalOpener(a,b)}/>
           </Modal>
           <Modal show={editing} modalClosed={()=>editingClosedHandler()} modalType='Modal1'>
             <EditCustomer
@@ -247,7 +261,7 @@ const sortBy = (a,b) => {
               editingClosed={()=>editingClosedHandler()}
               />
           </Modal>
-          
+          {formMissingInfo}
           <Header
             name = {"Customers"}
             addingHandler = {()=>addingNewHandler()} 

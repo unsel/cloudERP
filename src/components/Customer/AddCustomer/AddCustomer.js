@@ -94,9 +94,9 @@ const AddCustomer = props => {
 
   const clearForm = () =>{
     const updatedForm = updateObject(customerForm,{
-      name: updateObject(customerForm.name,{value:""}),
-      workers:updateObject(customerForm.workers,{value:''}),
-      revenue:updateObject(customerForm.revenue,{value:''}),
+      name: updateObject(customerForm.name,{value:"",valid:false,touched:false}),
+      workers:updateObject(customerForm.workers,{value:'',valid:false,touched:false}),
+      revenue:updateObject(customerForm.revenue,{value:'',valid:false,touched:false}),
       // type:updateObject(customerForm.type,{value:'company'})
     })
     const updatedContactForm = updateObject(contactForm,{
@@ -110,13 +110,29 @@ const AddCustomer = props => {
   const addCustomerHandler = event => {
     // event.preventDefault();
     if(!(formIsValid && form2IsValid)){
-      let a = [];
+      let a=[];
       for (const property in customerForm){
-        if(!customerForm[property].valid){
+        if(customerForm[property].validation.required && customerForm[property].value === ''){
           a.push(customerForm[property].elementConfig.placehold)
         }
       }
-      props.formModalOpener(a)
+      for (const property in contactForm){
+          if(contactForm[property].validation.required && contactForm[property].value === ''){
+            a.push(contactForm[property].elementConfig.placehold)
+          }
+      }
+      let b = [];
+      for (const property in customerForm){
+        if(!customerForm[property].valid && !customerForm[property].validation.required){
+          b.push(customerForm[property].elementConfig.placehold)
+        }
+      }
+      for (const property in contactForm ){
+        if(!contactForm[property].valid && !contactForm[property].required){
+            b.push(contactForm[property].elementConfig.placehold)
+          }
+      }
+      props.formModalOpener(a,b)
       return
     }
 
