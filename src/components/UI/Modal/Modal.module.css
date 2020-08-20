@@ -1,6 +1,6 @@
-.Modal {
+.Modal , .Modal2 {
     position: fixed;
-    z-index: 500;
+    z-index: 105;
     background-color: white;
     width: 40%;
     border: 1px solid #ccc;
@@ -12,6 +12,12 @@
     transition: all 0.3s ease-out;
 }
 
+.Modal2{
+    z-index: 115;
+    width: 30%;
+    left: calc(35%);
+}
+
 @media (max-width: 1500px) {
     .Modal {
         width: 60%;
@@ -20,7 +26,12 @@
 }
 @media (max-width: 900px) {
     .Modal {
-        width: 90%;
-        left: calc(5%);
+        width: 80%;
+        left: calc(10%);
+    }
+    .Modal2{
+        margin-top: 10px;
+        width: 78%;
+        left: calc(11%)
     }
 }

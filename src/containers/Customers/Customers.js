@@ -29,6 +29,9 @@ const Customers = props => {
   const [sortOrder,setSortOrder] = useState(1);
   const [selectedItems,setSelectedItems] = useState([])
   const [checkAll,setCheckAll] = useState(false)
+  const [formModalOpen,setFormModalOpen] = useState(false)   // Form Warning
+  const [formModalInfo,setFormModalInfo]= useState([]);
+
 
   useEffect(() => {
     onFetchCustomers(/*props.token, props.userId*/);
@@ -182,6 +185,10 @@ const sortBy = (a,b) => {
   const sortOrderToggleHandler = () => {
     setSortOrder(-sortOrder);
   }
+  const formModalOpener = (b) => {
+    setFormModalInfo(b)
+    setFormModalOpen(true)
+  }
   let icon = (sortOrder === -1) ? <FontAwesomeIcon icon="arrow-down" onClick={()=>{sortOrderToggleHandler()}}/>:<FontAwesomeIcon icon="arrow-up" onClick={()=>{sortOrderToggleHandler()}}/>;
   let filterForm = (
     <div className={classes.FilterForm}>
@@ -209,15 +216,31 @@ const sortBy = (a,b) => {
                         }
         </div>
   )
+  
   return (
       <div >
-          <Modal show={addingNew} modalClosed={()=>addingClosedHandler()}>
+          <Modal show={formModalOpen} modalClosed={()=>{setFormModalOpen(false)}} modalType='Modal2'>
+              <div className={classes.FormModal}>
+                <div className={classes.HeadDiv}>
+                  <span className={classes.Text1}><strong><FontAwesomeIcon icon="circle" color="orange" size='xs'/> Missing Values Required</strong></span>
+                  <button className={classes.CloseBtn} onClick={()=>{setFormModalOpen(false)}}>Close</button>
+                </div>
+                <div className={classes.Missing}>
+                  <p>Following fields have missing values:</p>
+                  <ul>
+                  {formModalInfo.map((el,i)=>{return <li>{el}</li>})}
+                  </ul>
+                </div>
+              </div>
+          </Modal>
+          <Modal show={addingNew} modalClosed={()=>addingClosedHandler() } modalType='Modal1'>
             <AddCustomer
               addedNew={()=>addingClosedHandler()}
               closeNew={()=>addingClosedHandler()}
-              clearChecked={()=>clearChecked()}/>
+              clearChecked={()=>clearChecked()}
+              formModalOpener={(b)=>formModalOpener(b)}/>
           </Modal>
-          <Modal show={editing} modalClosed={()=>editingClosedHandler()}>
+          <Modal show={editing} modalClosed={()=>editingClosedHandler()} modalType='Modal1'>
             <EditCustomer
               customerData={editForm}
               editingFinished={()=>editingFinishedHandler()}

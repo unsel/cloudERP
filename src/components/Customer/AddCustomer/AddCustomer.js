@@ -23,7 +23,6 @@ const AddCustomer = props => {
       validation: { required: true },
       valid: false, touched: false
     },
-    
     revenue: {
       elementType: 'input',
       elementConfig: {
@@ -110,6 +109,16 @@ const AddCustomer = props => {
   
   const addCustomerHandler = event => {
     // event.preventDefault();
+    if(!(formIsValid && form2IsValid)){
+      let a = [];
+      for (const property in customerForm){
+        if(!customerForm[property].valid){
+          a.push(customerForm[property].elementConfig.placehold)
+        }
+      }
+      props.formModalOpener(a)
+      return
+    }
 
     let formData = {};
     for (let formElementIdentifier in customerForm) {
@@ -233,18 +242,17 @@ const AddCustomer = props => {
  
   
   return (
-    <div className={classes.Form}>
-      <div className={classes.HeadDiv}>
-        <span className={classes.Text1}><strong>New Customer</strong></span>
-        <button className={classes.SaveBtn} onClick={()=>addCustomerHandler()} disabled={!formIsValid || !form2IsValid}>Save</button>
-        <button className={classes.CloseBtn} onClick={()=> props.closeNew()}>Close</button>
-        <button className={classes.ResetBtn} onClick={()=>clearForm()} >Reset</button>
-        <button className={classes.SaveBtn} onClick={()=>addExamplesHandler()}>AddExamples</button>
-        
-      </div>
-      {form}
-      {form2}
-    </div>  
+      <div className={classes.Form}>
+        <div className={classes.HeadDiv}>
+          <span className={classes.Text1}><strong>New Customer</strong></span>
+          <button className={classes.SaveBtn} onClick={()=>addCustomerHandler()}>Save</button>
+          <button className={classes.CloseBtn} onClick={()=> props.closeNew()}>Close</button>
+          <button className={classes.ResetBtn} onClick={()=>clearForm()} >Reset</button>
+          <button className={classes.SaveBtn} onClick={()=>addExamplesHandler()}>AddExamples</button>
+        </div>
+        {form}
+        {form2}
+      </div>  
   );
 };
 

@@ -73,8 +73,33 @@
     font: 13px Helvetica ;
     color: #36414C;
 }
+.HeadDiv{
+    padding: 10px 10px 15px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 15px;
+}
 
+.Text1{
+    display:inline-block;
+    margin-left: 10px;
+}
 
+.Missing{
+    margin-left: 25px;
+}
+.Missing ul{
+    margin-top: 15px;
+}
+.HeadDiv Button{
+    margin-left: 5px;
+    border: none;
+    border-radius: 2px;
+    height: 2em;
+}
+
+.CloseBtn{
+    float: right;
+}
 
 @media(max-width:1000px){
     .Sidebar{
