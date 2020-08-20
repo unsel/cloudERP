@@ -7,12 +7,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faCheckSquare, faBell,faCaretDown,faArrowDown,faArrowUp,faSearch, faCircle,faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faBell,faCaretDown,faArrowDown,faArrowUp,faSearch, faCircle,faAngleUp, faAngleDown, faTimes} from '@fortawesome/free-solid-svg-icons'
 
 import Layout from './hoc/Layout/Layout';
 import Rootpage from './containers/RootPage/Rootpage';
 
-library.add(fab,faCheckSquare,faBell,faCaretDown,faArrowUp,faArrowDown,faSearch,faCircle,faAngleUp,faAngleDown)
+library.add(fab,faCheckSquare,faBell,faCaretDown,faArrowUp,faArrowDown,faSearch,faCircle,faAngleUp,faAngleDown,faTimes)
 
 const App = props => {
 

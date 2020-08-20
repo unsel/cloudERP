@@ -19,10 +19,11 @@ const Customer = ( props ) => {
             <input  checked={deneme} onClick={()=>{setDeneme(!deneme)}} onChange={(e)=>props.handleCheckbox(e.target.checked,props.id)} className={classes.Input} type="checkbox"/>
             <p className={classes.Name}> <strong>{props.name}</strong></p> 
             <p className={classes.Others}> <strong><FontAwesomeIcon icon="circle" color='#5e64ff' size='xs'/>&nbsp;{props.status}</strong></p>
-            <p className={classes.Others}> <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong></p>
+            <p className={classes.Workers}> <strong>{Number.parseFloat( props.workers).toFixed( 0 )}</strong></p>
             <p className={classes.Others}> <strong>{props.type}</strong></p>
             <button className={classes.Buttons} onClick={()=>{props.deleteItem(props.id)}}>DELETE</button>
             <button className={classes.Buttons} onClick={()=>{props.editingHandler(props)}}>EDIT</button>
+            <FontAwesomeIcon className={classes.MyIcon} icon="circle" size="xs" color="blue"/>
         </div>
     );
 };

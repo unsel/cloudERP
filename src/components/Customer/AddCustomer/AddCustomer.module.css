@@ -40,12 +40,23 @@
     height: 2em;
 }
 .SaveBtn{
+    float: right; 
+    background-color: #5e64ff;
+    color: white;
+}
+.ExamplesBtn{
     float: right;
     background-color: #5e64ff;
     color: white;
 }
 .CloseBtn{
     float: right;
+}
+.CloseBtnSmall{
+    float: right;
+    padding:0px 10px;
+    display: none;
+    background-color: #f0f4f7;
 }
 .ResetBtn{
     float: right;
@@ -63,5 +74,15 @@
     display: block;
     margin-bottom: 15px;
     margin-left: 11px;
+}
+
+@media(max-width:800px){
+    .CloseBtn,.ResetBtn,.ExamplesBtn{
+        display: none;
+    }
+    .CloseBtnSmall{
+        display: inline-block;
+    }
+    
 }
 

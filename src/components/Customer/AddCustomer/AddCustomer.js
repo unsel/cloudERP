@@ -100,8 +100,8 @@ const AddCustomer = props => {
       // type:updateObject(customerForm.type,{value:'company'})
     })
     const updatedContactForm = updateObject(contactForm,{
-      mail:updateObject(contactForm.mail,{value:""}),
-      phoneNumber:updateObject(contactForm.phoneNumber,{value:""}),
+      mail:updateObject(contactForm.mail,{value:"",touched:false}),
+      phoneNumber:updateObject(contactForm.phoneNumber,{value:"",touched:false}),
     })
     setCustomerForm(updatedForm)
     setContactForm(updatedContactForm)
@@ -123,12 +123,12 @@ const AddCustomer = props => {
       }
       let b = [];
       for (const property in customerForm){
-        if(!customerForm[property].valid && !customerForm[property].validation.required){
+        if(!customerForm[property].valid && customerForm[property].value !== ''){
           b.push(customerForm[property].elementConfig.placehold)
         }
       }
       for (const property in contactForm ){
-        if(!contactForm[property].valid && !contactForm[property].required){
+        if(!contactForm[property].valid && contactForm[property].value !== ''){
             b.push(contactForm[property].elementConfig.placehold)
           }
       }
@@ -263,8 +263,9 @@ const AddCustomer = props => {
           <span className={classes.Text1}><strong>New Customer</strong></span>
           <button className={classes.SaveBtn} onClick={()=>addCustomerHandler()}>Save</button>
           <button className={classes.CloseBtn} onClick={()=> props.closeNew()}>Close</button>
+          <button className={classes.CloseBtnSmall} onClick={()=> props.closeNew()}><FontAwesomeIcon icon="times" size="4px" color="#696969"/></button>
           <button className={classes.ResetBtn} onClick={()=>clearForm()} >Reset</button>
-          <button className={classes.SaveBtn} onClick={()=>addExamplesHandler()}>AddExamples</button>
+          <button className={classes.ExamplesBtn} onClick={()=>addExamplesHandler()}>AddExamples</button>
         </div>
         {form}
         {form2}

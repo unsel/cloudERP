@@ -11,7 +11,7 @@
     margin-right: 10px;
     height: 10px;
 }
-.Name , .Others{
+.Name , .Others , .Workers{
     display: inline-block;
     width: 20%;
     overflow: hidden;
@@ -19,6 +19,7 @@
     font: 13px Helvetica ;
     color: #36414C;
 }
+
 
 
 .Buttons{
@@ -33,9 +34,20 @@
 }
 
 p{
-    display: inline;
+    /* display: inline; */
     margin-top: 14px;
     margin-bottom: 7px;
+}
+
+.MyIcon{
+    float: right;
+    display: none;
+}
+
+@media(max-width:1450px){
+    .Workers{
+        display: none;
+    }
 }
 
 @media(max-width:700px){
@@ -44,6 +56,22 @@ p{
     }
     .Name{
         width:20%
+    }
+    
+}
+@media(max-width:550px){
+    .Others {
+        display: none;
+    }
+    .Name{
+        width:20%
+    }
+    .MyIcon{
+        display: inline-block;
+        margin-top: 15px;
+    }
+    .Buttons{
+        display: none;
     }
     
 }

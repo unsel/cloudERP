@@ -32,11 +32,18 @@ const Customers = props => {
   const [formModalOpen,setFormModalOpen] = useState(false)   // Form Warning
   const [formMissingInfo,setFormMissingInfo]= useState([]);
   const [formInvalidInfo,setFormInvalidInfo]= useState([]);
+  const [browserWidth,setBrowserWidth] = useState(document.documentElement.clientWidth)
 
 
   useEffect(() => {
     onFetchCustomers(/*props.token, props.userId*/);
   }, [onFetchCustomers]);
+ 
+  // useEffect(()=>{
+  //   setInterval(()=>{
+  //     setBrowserWidth(document.documentElement.clientWidth)
+  //   },100)
+  // },[])
   
 const sortBy = (a,b) => {
     if(sortFilter === "name"){
@@ -216,8 +223,9 @@ const sortBy = (a,b) => {
           <div>
             <p className={classes.Name} onClick={()=>{setSortFilter("name")}}> <strong>Full Name</strong></p> 
             <p className={classes.Others} > <strong>Status </strong></p>
-            <p className={classes.Others} onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>
+            <p className={classes.Workers} onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>
             <p className={classes.Others} > <strong>Type </strong></p>
+            <span className={classes.Rate}> {props.customers.length} of {props.customers.length}</span>  {/*  going to change */}
             </div>
             : <p className={classes.Others}>{selectedItems.length + ' items selected'}</p>
                         }
@@ -261,7 +269,8 @@ const sortBy = (a,b) => {
               editingClosed={()=>editingClosedHandler()}
               />
           </Modal>
-          {formMissingInfo}
+          <button id="bu" onClick={()=>setBrowserWidth(document.documentElement.clientWidth)}>WIDTH</button>
+          {browserWidth}
           <Header
             name = {"Customers"}
             addingHandler = {()=>addingNewHandler()} 
@@ -269,15 +278,9 @@ const sortBy = (a,b) => {
             dropdown={selectedItems.length?dropdown:null}/>
           <div className={classes.Content}>
             <div className={classes.Sidebar}>
-              <button onClick={()=>checkAllHandler()}>SelectAll </button>
             
-              {checkAll?<div>true</div>:<div>false</div>}
-              {props.customers.length}
-              {selectedItems.length}
-              <button onClick={()=>deleteSelected()}>DeleteSelected</button>
             </div>
             <div className={classes.Customers}>
-              {selectedItems}
               {filterForm}
               {headDiv}
               {customers}
