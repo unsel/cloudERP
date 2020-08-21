@@ -116,12 +116,13 @@
     padding-left: 20px;
     margin-bottom: 7px;
 }
-.countDiv button{
+.MyNormal{
     border: none;
     background-color: #F0F4F7;
     color: #36414c;
     padding: 8px 12px;
     font-size: 12px;
+    outline:none;
 }
 .LeftRadius{
     border-top-left-radius: 3px;
@@ -132,9 +133,15 @@
     border-bottom-right-radius: 3px;
 }
 .countDiv button:focus{
+    outline: none;
+}
+.MyFocus{
+    border: none;
     background-color: #8D99A6;
     color: white;
-    outline: none;
+    padding: 8px 12px;
+    font-size: 12px;
+    outline: 0;
 }
 
 @media(max-width:1450px){

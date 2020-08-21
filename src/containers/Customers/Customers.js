@@ -32,19 +32,14 @@ const Customers = props => {
   const [formModalOpen,setFormModalOpen] = useState(false)   // Form Warning
   const [formMissingInfo,setFormMissingInfo]= useState([]);
   const [formInvalidInfo,setFormInvalidInfo]= useState([]);
-  const [browserWidth,setBrowserWidth] = useState(document.documentElement.clientWidth)
+  // const [browserWidth,setBrowserWidth] = useState(document.documentElement.clientWidth)
+  const [itemCount,setItemCount] = useState([true,false,false])
 
 
   useEffect(() => {
     onFetchCustomers(/*props.token, props.userId*/);
   }, [onFetchCustomers]);
  
-  // useEffect(()=>{
-  //   setInterval(()=>{
-  //     setBrowserWidth(document.documentElement.clientWidth)
-  //   },100)
-  // },[])
-  
 const sortBy = (a,b) => {
     if(sortFilter === "name"){
     return a[sortFilter] > b[sortFilter] ? sortOrder:-sortOrder;
@@ -68,7 +63,7 @@ const sortBy = (a,b) => {
                 </DropdownButton>
   let customers = <Spinner />;
   if (!props.loading) {
-    customers= [...props.customers].sort(sortBy)
+    customers= [...props.customers].slice(0,itemCount[0]?10:(itemCount[1]?50:100)).sort(sortBy)
             .filter(customer => (customer.name.includes(nameFilter) || +customer.workers < workerFilter) )
             .map(customer => (
       <Customer
@@ -89,7 +84,7 @@ const sortBy = (a,b) => {
       />
     ));
   }
-
+ 
   const clearChecked = () => {
     setCheckAll(false);
     setSelectedItems([]);
@@ -225,19 +220,23 @@ const sortBy = (a,b) => {
             <p className={classes.Others} > <strong>Status </strong></p>
             <p className={classes.Workers} onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>
             <p className={classes.Others} > <strong>Type </strong></p>
-            <span className={classes.Rate}> {props.customers.length} of {props.customers.length}</span>  {/*  going to change */}
+            <span className={classes.Rate}>
+               {props.customers.length<=20 ? props.customers.length: (itemCount[0]) ? 20 :( props.customers.length <= 50 ? props.customers.length : (itemCount[1]? 50 :(props.customers.length <= 100 ? props.customers.length :100)))}  of {props.customers.length}
+            </span> 
             
             </div>
             : <div><p className={classes.ItemCount}>{selectedItems.length + ' items selected'}</p>
-            <span className={classes.Rate}> {props.customers.length} of {props.customers.length}</span>  {/*  going to change */}</div>
+            <span className={classes.Rate}>
+            {props.customers.length<=20 ? props.customers.length: (itemCount[0]) ? 20 :( props.customers.length <= 50 ? props.customers.length : (itemCount[1]? 50 :(props.customers.length <= 100 ? props.customers.length :100)))}  of {props.customers.length}</span>  
+            </div>
                         }
         </div>
   )
   const countDiv = (
     <div className={classes.countDiv}>
-      <button autoFocus className={classes.LeftRadius}>20</button>
-      <button>50</button>
-      <button className={classes.RightRadius}>100</button>
+      <button onClick={()=>setItemCount([true,false,false])} className={itemCount[0]?classes.MyFocus:classes.MyNormal}>20</button>
+      <button onClick={()=>setItemCount([false,true,false])} className={itemCount[1]?classes.MyFocus:classes.MyNormal}>50</button>
+      <button onClick={()=>setItemCount([false,false,true])} className={itemCount[2]?classes.MyFocus:classes.MyNormal}>100</button>
     </div>
   )
   

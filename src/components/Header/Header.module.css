@@ -19,6 +19,7 @@ h2{
 .Buttons{
     float: right;
     margin-right: 9em;
+    outline:none;
 }
 .Buttons .First2,.NewBtn{
     margin: 4px;

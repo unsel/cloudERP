@@ -7,7 +7,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-import classes from './Customer.module.css';
+import classes from './customer.module.css';
   
 const Customer = ( props ) => {
   const [deneme,setDeneme] = useState();
