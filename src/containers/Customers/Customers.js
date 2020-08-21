@@ -233,6 +233,13 @@ const sortBy = (a,b) => {
                         }
         </div>
   )
+  const countDiv = (
+    <div className={classes.countDiv}>
+      <button autoFocus className={classes.LeftRadius}>20</button>
+      <button>50</button>
+      <button className={classes.RightRadius}>100</button>
+    </div>
+  )
   
   return (
       <div >
@@ -271,6 +278,8 @@ const sortBy = (a,b) => {
               editingClosed={()=>editingClosedHandler()}
               />
           </Modal>
+          {/* <button id="bu" onClick={()=>setBrowserWidth(document.documentElement.clientWidth)}>WIDTH</button>
+          {browserWidth} */}
           <Header
             name = {"Customers"}
             addingHandler = {()=>addingNewHandler()} 
@@ -283,9 +292,8 @@ const sortBy = (a,b) => {
             <div className={classes.Customers}>
               {filterForm}
               {headDiv}
-              {customers}
-              <button id="bu" onClick={()=>setBrowserWidth(document.documentElement.clientWidth)}>WIDTH</button>
-              {browserWidth}
+              <div className={classes.CustomersHeight}>{customers}</div>
+              {countDiv}
             </div>
           </div>
       </div>

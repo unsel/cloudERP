@@ -79,7 +79,7 @@
 }
 @media (max-width: 770px) {
     .Toolbar{
-        padding-left: 5px;
+        padding-left: 4px;
     }
     .Logo , .ToolbarText0{
         display: none;

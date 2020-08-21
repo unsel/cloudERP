@@ -3,7 +3,7 @@
 }
 
 .Sidebar{
-    width: 20%;
+    width: 25%;
     display: inline-block;
 }
 .WidthMaker1{
@@ -11,11 +11,12 @@
     width: 25%;
 }
 .Customers{
-    width: 70%;
+    width: 65%;
     display: inline-block;
     border-left: 1px solid #d8d8d8; border-right: 1px solid #d8d8d8;
     border-bottom: 1px solid #d8d8d8;
-    height: 600px;
+    min-height: 560px;
+    margin-bottom: 100px;
 }
 
 .FilterForm{
@@ -48,13 +49,13 @@
 
 
 .HeadDiv {
-    height: 60px;
+    height: 50px;
     border: 1px solid #eee;
     box-shadow: 0 2px 2px #ccc;
-    padding: 0px 10px;
-    margin: 4px auto;
     box-sizing: border-box;
     background-color: #F7FAFC;
+    padding: 4px 10px  10px;
+    border-bottom: 1px solid #e5e5e5;
 }
 .HeadDiv p{
     color:#8D99A6;
@@ -83,11 +84,7 @@
     font-weight: 500;
     margin: 10px 10px 0px 0px;
 }
-.HeadDiv{
-    padding: 10px 10px 15px 10px;
-    border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 15px;
-}
+
 
 .Text1{
     display:inline-block;
@@ -109,6 +106,35 @@
 
 .CloseBtn{
     float: right;
+}
+.CustomersHeight{
+    min-height: 410px;
+}
+.countDiv{
+    border-top: 1px solid #d8d8d8;
+    padding-top: 7px;
+    padding-left: 20px;
+    margin-bottom: 7px;
+}
+.countDiv button{
+    border: none;
+    background-color: #F0F4F7;
+    color: #36414c;
+    padding: 8px 12px;
+    font-size: 12px;
+}
+.LeftRadius{
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.RightRadius{
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.countDiv button:focus{
+    background-color: #8D99A6;
+    color: white;
+    outline: none;
 }
 
 @media(max-width:1450px){
