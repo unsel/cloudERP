@@ -226,8 +226,10 @@ const sortBy = (a,b) => {
             <p className={classes.Workers} onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>
             <p className={classes.Others} > <strong>Type </strong></p>
             <span className={classes.Rate}> {props.customers.length} of {props.customers.length}</span>  {/*  going to change */}
+            
             </div>
-            : <p className={classes.Others}>{selectedItems.length + ' items selected'}</p>
+            : <div><p className={classes.ItemCount}>{selectedItems.length + ' items selected'}</p>
+            <span className={classes.Rate}> {props.customers.length} of {props.customers.length}</span>  {/*  going to change */}</div>
                         }
         </div>
   )
@@ -269,8 +271,6 @@ const sortBy = (a,b) => {
               editingClosed={()=>editingClosedHandler()}
               />
           </Modal>
-          <button id="bu" onClick={()=>setBrowserWidth(document.documentElement.clientWidth)}>WIDTH</button>
-          {browserWidth}
           <Header
             name = {"Customers"}
             addingHandler = {()=>addingNewHandler()} 
@@ -278,12 +278,14 @@ const sortBy = (a,b) => {
             dropdown={selectedItems.length?dropdown:null}/>
           <div className={classes.Content}>
             <div className={classes.Sidebar}>
-            
+              
             </div>
             <div className={classes.Customers}>
               {filterForm}
               {headDiv}
               {customers}
+              <button id="bu" onClick={()=>setBrowserWidth(document.documentElement.clientWidth)}>WIDTH</button>
+              {browserWidth}
             </div>
           </div>
       </div>

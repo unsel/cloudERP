@@ -1,10 +1,7 @@
 .Header{
-   
     z-index: 80;
-    margin-bottom: 10px;
-    text-align: center;
+    margin-bottom: 14px;
 }
-
 h2{
     font-weight: 500;
     color: #36414c;
@@ -16,13 +13,12 @@ h2{
 }
 .First{
     display: inline-block;
-    width: 41%;
+    width: 30%;
     text-align: left;
 }
 .Buttons{
-    display: inline-block;
-    width: 44%;
-    
+    float: right;
+    margin-right: 9em;
 }
 .Buttons .First2,.NewBtn{
     margin: 4px;
@@ -53,4 +49,31 @@ h2{
     font-size: 12px;
     background-color: #5e64ff;
     color: white;
+}
+
+@media(max-width:1300px){
+    .Buttons{
+        margin-right: 7em;
+    }
+}
+@media(max-width:100px){
+    .Buttons{
+        margin-right: 5em;
+    }
+}
+@media(max-width:770px){
+    .TempDiv{
+        width: 0;
+    }
+    .First{
+        margin-left:1em;
+    }
+    h2{
+        font-weight: 500;
+        font-size: 18px;
+    }
+    .Buttons{
+        margin-right: 1em;
+    }
+    
 }

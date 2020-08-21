@@ -3,7 +3,7 @@
 }
 
 .Sidebar{
-    width: 25%;
+    width: 20%;
     display: inline-block;
 }
 .WidthMaker1{
@@ -11,7 +11,7 @@
     width: 25%;
 }
 .Customers{
-    width: 60%;
+    width: 70%;
     display: inline-block;
     border-left: 1px solid #d8d8d8; border-right: 1px solid #d8d8d8;
     border-bottom: 1px solid #d8d8d8;
@@ -66,13 +66,16 @@
     margin-top: 15px;
     margin-right: 10px;
 }
-.Name , .Others , .Workers{
+.Name , .Others , .Workers,.ItemCount{
     display: inline-block;
     width: 20%;
     overflow: hidden;
     margin-right: 10px;
     font: 13px Helvetica ;
     color: #36414C;
+}
+.ItemCount{
+    width: 40%;
 }
 .Rate{
     float: right;
@@ -127,7 +130,15 @@
     }
     
 }
-
+@media(max-width:770px){
+    .Sidebar {
+        width: 4%;
+    }
+    .Customers{
+        width:92%
+    }
+    
+}
 @media(max-width:700px){
     .Others {
         display: none;

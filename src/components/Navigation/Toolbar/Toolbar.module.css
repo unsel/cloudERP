@@ -14,13 +14,13 @@
     border-top: 1px solid #cecece;
     border-bottom: 1px solid #d8d8d8;
 }
-.Random1{
+.Random1 , .Random0{
     width: 10%;
 }
-.ToolbarText{
+.ToolbarText , .ToolbarText0{
     color:#8d99a6;
     font-weight: 600;
-    font-size: 0.9em;
+    font-size: 12px;
 }
 
 .Toolbar nav {
@@ -49,26 +49,27 @@
    height: 70%;
    margin-left: 3em;
 }
-
-@media (max-width: 499px) {
-    .DesktopOnly {
-        display: none;
-    }
+.Bars{
+    display: none;
 }
-@media (max-width: 1100px) {
-    .Random1{
+.Bars :hover{
+    color:#36414c;
+}
+
+
+@media (max-width: 1150px) {
+    .Random0{
         width: 0%;
     }
     .Logo{
-        margin-left: 4em;
+        margin-left: 6em;
     }
 }
 @media (max-width: 950px) {
     .Random1{
-        width: 0%;
+        width: 7%;
     }
     .Searchbar {
-        /* display: none; */
         width: 1%;
         visibility: hidden;
     }
@@ -76,7 +77,26 @@
         margin-left: 4em;
     }
 }
-
+@media (max-width: 770px) {
+    .Toolbar{
+        padding-left: 5px;
+    }
+    .Logo , .ToolbarText0{
+        display: none;
+    }
+    
+    .Bars{
+        display: inline-block;
+    }
+    .Random1{
+        width: 0;
+    }
+}
+@media (max-width: 499px) {
+    .DesktopOnly {
+        display: none;
+    }
+}
 @media (max-width:400px){
     .DesktopOnly {
         display: none;
