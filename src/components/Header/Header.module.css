@@ -1,6 +1,12 @@
 .Header{
-    z-index: 80;
-    margin-bottom: 14px;
+    height: 71px;
+    width: 100%;
+    position: fixed;
+    top: 40px;
+    background-color: #ffffff;
+    padding: 18px 0px 5px 0px;
+    z-index: 100;
+    border-bottom: 1px solid #d8d8d8;
 }
 h2{
     font-weight: 500;
