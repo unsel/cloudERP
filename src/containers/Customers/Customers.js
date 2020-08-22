@@ -32,7 +32,7 @@ const Customers = props => {
   const [formModalOpen,setFormModalOpen] = useState(false)   // Form Warning
   const [formMissingInfo,setFormMissingInfo]= useState([]);
   const [formInvalidInfo,setFormInvalidInfo]= useState([]);
-  // const [browserWidth,setBrowserWidth] = useState(document.documentElement.clientWidth)
+  const [browserWidth,setBrowserWidth] = useState(document.documentElement.clientWidth)
   const [itemCount,setItemCount] = useState([true,false,false])
 
 
@@ -63,7 +63,7 @@ const sortBy = (a,b) => {
                 </DropdownButton>
   let customers = <Spinner />;
   if (!props.loading) {
-    customers= [...props.customers].slice(0,itemCount[0]?10:(itemCount[1]?50:100)).sort(sortBy)
+    customers= [...props.customers].slice(0,itemCount[0]?20:(itemCount[1]?50:100)).sort(sortBy)
             .filter(customer => (customer.name.includes(nameFilter) || +customer.workers < workerFilter) )
             .map(customer => (
       <Customer
@@ -239,7 +239,26 @@ const sortBy = (a,b) => {
       <button onClick={()=>setItemCount([false,false,true])} className={itemCount[2]?classes.MyFocus:classes.MyNormal}>100</button>
     </div>
   )
-  
+ 
+  const sideBar = (
+    <div className={classes.Sidebar} >
+      <ul>
+        <li>VIEWS</li>
+        <li>Dashboard</li>
+        <li>Images</li>
+      </ul>
+      <ul>
+        <li>FILTER BY</li>
+        <li>Assigned To</li>
+        <li>Created By</li>
+      </ul>
+      <ul>
+        <li>TAGS</li>
+        <li>Tags</li>
+        <li>Show Tags</li>
+      </ul>
+    </div>
+  )
   return (
       <div >
           <Modal show={formModalOpen} modalClosed={()=>{setFormModalOpen(false)}} modalType='Modal2'>
@@ -277,18 +296,17 @@ const sortBy = (a,b) => {
               editingClosed={()=>editingClosedHandler()}
               />
           </Modal>
-          {/* <button id="bu" onClick={()=>setBrowserWidth(document.documentElement.clientWidth)}>WIDTH</button>
-          {browserWidth} */}
           <Header
             name = {"Customers"}
             addingHandler = {()=>addingNewHandler()} 
             refreshHandler={()=>refreshHandler()}
             dropdown={selectedItems.length?dropdown:null}/>
+          {sideBar}
           <div className={classes.Content}>
-            <div className={classes.Sidebar}>
-              
-            </div>
+            <div  className={classes.SidebarTemp}></div>
             <div className={classes.Customers}>
+            {/* <button id="bu" onClick={()=>setBrowserWidth(document.documentElement.clientWidth)}>WIDTH</button>
+          {browserWidth} */}
               {filterForm}
               {headDiv}
               <div className={classes.CustomersHeight}>{customers}</div>

@@ -20,7 +20,7 @@ h2{
 .First{
     display: inline-block;
     width: 30%;
-    text-align: left;
+    /* text-align: left; */
 }
 .Buttons{
     float: right;
@@ -63,7 +63,12 @@ h2{
         margin-right: 7em;
     }
 }
-@media(max-width:100px){
+@media(max-width:1250px){
+    .TempDiv{
+        width: 4%;
+    }
+}
+@media(max-width:1000px){
     .Buttons{
         margin-right: 5em;
     }
@@ -73,6 +78,7 @@ h2{
         width: 0;
     }
     .First{
+        padding-top:7px;
         margin-left:1em;
     }
     h2{
