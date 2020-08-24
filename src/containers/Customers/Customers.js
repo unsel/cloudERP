@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Customer from '../../components/Customer/Customer';
 import AddCustomer from '../../components/Customer/AddCustomer/AddCustomer';
 import EditCustomer from '../../components/Customer/EditCustomer/EditCustomer';
+import EditMultiple from '../../components/EditMultiple/EditMultiple';
 import axios from '../../axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
@@ -24,6 +25,7 @@ const Customers = props => {
   const [workerFilter,setWorkerFilter] = useState(""); const[tempWorkerFilter,setTempWorkerFilter]=useState("");
   const [addingNew,setAddingNew] = useState(false);
   const [editing,setEditing] = useState(false);
+  const [editingMultiple,setEditingMultiple] = useState(false);
   const [editForm,setEditForm] = useState('initial')
   const [sortFilter,setSortFilter] = useState("");
   const [sortOrder,setSortOrder] = useState(1);
@@ -56,7 +58,7 @@ const sortBy = (a,b) => {
                   variant="primary"
                 >
                   <Dropdown.Item eventKey="1" onClick={()=>deleteSelected()}>Delete</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Edit</Dropdown.Item>
+                  <Dropdown.Item onClick={()=>editingMultipleHandler()} eventKey="2">Edit (NA)</Dropdown.Item>
                   <Dropdown.Item eventKey="3">Print</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
@@ -189,6 +191,18 @@ const sortBy = (a,b) => {
     // setFormMissingInfo([]);
     // setFormInvalidInfo([]);
   }
+  const editingMultipleHandler = (e) => {
+      setEditingMultiple(true)
+  }
+  const editingMultipleClosedHandler = (e) => {
+      setEditingMultiple(false)
+  }
+  const editedMultipleHandler = () => {
+      setEditingMultiple(false)
+      clearChecked();
+  }
+  
+
   
   const sortOrderToggleHandler = () => {
     setSortOrder(-sortOrder);
@@ -259,11 +273,10 @@ const sortBy = (a,b) => {
       </ul>
     </div>
   )
-  return (
-      <div >
-          <Modal show={formModalOpen} modalClosed={()=>{setFormModalOpen(false)}} modalType='Modal2'>
+  const errorModal = (
+            <Modal show={formModalOpen} modalClosed={()=>{setFormModalOpen(false)}} modalType='Modal2'>
               <div className={classes.FormModal}>
-                <div className={classes.HeadDiv}>
+                <div className={classes.ModalHeadDiv}>
                   <span className={classes.Text1}>
                     {formMissingInfo[0] ? <strong><FontAwesomeIcon icon="circle" color="orange" size='xs'/> Missing Values Required</strong>
                                       : <strong><FontAwesomeIcon icon="circle" color="red" size='xs'/> Message</strong>}
@@ -281,6 +294,18 @@ const sortBy = (a,b) => {
                   </ul>
                 </div>
               </div>
+          </Modal>
+  )
+  return (
+      <div >
+          {errorModal}
+          <Modal show={editingMultiple} modalClosed={()=>editingMultipleClosedHandler() } modalType='Modal1'>
+            <EditMultiple
+              idArray={selectedItems}
+              editedMultipleHandler={()=>editedMultipleHandler()}
+              editingMultipleClosed={()=>editingMultipleClosedHandler()}
+              clearChecked={()=>clearChecked()}
+              formModalOpener={(a,b)=>formModalOpener(a,b)}/>
           </Modal>
           <Modal show={addingNew} modalClosed={()=>addingClosedHandler() } modalType='Modal1'>
             <AddCustomer

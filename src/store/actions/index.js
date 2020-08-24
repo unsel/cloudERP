@@ -8,3 +8,7 @@ export {
     editCustomerInit,
     fetchCustomers
 } from './customer';
+
+export {
+    editMultiple
+} from './multiple';

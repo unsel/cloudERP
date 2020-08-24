@@ -57,14 +57,15 @@
 }
 
 
-@media (max-width: 1150px) {
+@media (max-width: 1250px) {
     .Random0{
         width: 0%;
     }
     .Logo{
-        margin-left: 6em;
+        margin-left: 1.5em;
     }
 }
+
 @media (max-width: 950px) {
     .Random1{
         width: 7%;
@@ -73,9 +74,7 @@
         width: 1%;
         visibility: hidden;
     }
-    .Logo{
-        margin-left: 4em;
-    }
+    
 }
 @media (max-width: 770px) {
     .Toolbar{

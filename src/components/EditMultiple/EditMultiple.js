@@ -10,17 +10,21 @@ import * as actions from '../../store/actions/index';
 import { updateObject, checkValidity } from '../../shared/utility';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const EditCustomer = props => {
+const EditMultiple = props => {
   
-  const [customerForm, setCustomerForm] = useState({
+  const [editMultipleForm, setEditMultipleForm] = useState({
       type : {
         elementType:'select',
         elementConfig:{
-            options:[{value:'Company',displayValue:'Company'},
-                     {value:'Individual',displayValue:'Individual'}],
+            options:[
+                    {value:'name',displayValue:'Full Name'},
+                    {value:'revenue',displayValue:'Revenue'},
+                    {value:'workers',displayValue:'Workers'},
+                    {value:'mail',displayValue:'Email'},
+                    {value:'phoneNumber',displayValue:'Phone Number'}],
             placehold:'Type'
         },
-        value: 'Company',
+        value: 'name',
         validation:{}, valid:true
       },
       value: {
@@ -40,37 +44,31 @@ const EditCustomer = props => {
   
   const [formIsValid, setFormIsValid] = useState(false);
 
-  useEffect(()=>{
-    const updatedForm = updateObject(customerForm,{
-        value: updateObject(customerForm.value,{value:props.customerData.value}),
-        workers:updateObject(customerForm.workers,{value:props.customerData.workers}),
-        revenue:updateObject(customerForm.revenue,{value:props.customerData.revenue}),
-        type:updateObject(customerForm.type,{value:props.customerData.type})
-      })
-      setCustomerForm(updatedForm)
-      // eslint-disable-next-line
-  },[props.customerData])
+  // useEffect(()=>{
+  //   const updatedForm = updateObject(editMultipleForm,{
+  //     type:updateObject(editMultipleForm.type,{value:props.customerData.type}),
+  //     value: updateObject(editMultipleForm.value,{value:props.customerData.value})
+  //     })
+  //     setEditMultipleForm(updatedForm)
+  //     // eslint-disable-next-line
+  // },[props.customerData])
 
   const clearForm = () =>{
-    const updatedForm = updateObject(customerForm,{
-      value: updateObject(customerForm.value,{value:""}),
-      type:updateObject(customerForm.type,{value:'Individual'})
+    const updatedForm = updateObject(editMultipleForm,{
+      value: updateObject(editMultipleForm.value,{value:""}),
+      type:updateObject(editMultipleForm.type,{value:'Individual'})
     })
-    setCustomerForm(updatedForm)
+    setEditMultipleForm(updatedForm)
   }
-  const editCustomerHandler = event => {
+  const editMultipleHandler = event => {
     // event.preventDefault();
 
     let formData = {};
-    for (let formElementIdentifier in customerForm) {
-      formData[formElementIdentifier] = customerForm[formElementIdentifier].value;
+    for (let formElementIdentifier in editMultipleForm) {
+      formData[formElementIdentifier] = editMultipleForm[formElementIdentifier].value;
     }
-    const customer = {
-      value:formData.value,
-      type:formData.type,
-    };
-    props.onEditMultipe(props.idArray,customer);
-    props.editingFinished();
+    props.onEditMultiple(props.idArray,formData.type.value,formData.value.value);
+    props.editedMultipleHandler();
     clearForm();
     setFormIsValid(false); 
   };
@@ -93,23 +91,23 @@ const EditCustomer = props => {
     for (let inputIdentifier in updatedCustomerForm) {
       formIsValid = updatedCustomerForm[inputIdentifier].valid && formIsValid;
     }
-    setCustomerForm(updatedCustomerForm);
+    setEditMultipleForm(updatedCustomerForm);
     setFormIsValid(formIsValid)
     
   };
 
   const formElementsArray = [];
-  const arrayFiller = (customerForm,formElementsArray) => {
-    for (let key in customerForm) {
+  const arrayFiller = (editMultipleForm,formElementsArray) => {
+    for (let key in editMultipleForm) {
       formElementsArray.push({
         id: key,
-        config: customerForm[key]
+        config: editMultipleForm[key]
       });
     }
   }
-  arrayFiller(customerForm,formElementsArray)
+  arrayFiller(editMultipleForm,formElementsArray)
   let form = (
-    <form onSubmit={editCustomerHandler}>
+    <form onSubmit={editMultipleHandler}>
       {formElementsArray.map(formElement => (
         <Input
           key={formElement.id}
@@ -120,21 +118,21 @@ const EditCustomer = props => {
           invalid={!formElement.config.valid}
           shouldValidate={formElement.config.validation}
           touched={formElement.config.touched}
-          changed={event => inputChangedHandler(event, formElement.id,customerForm)}
+          changed={event => inputChangedHandler(event, formElement.id,editMultipleForm)}
         />
       ))}
     </form>
   );
 
-  if (props.loading) {
+  if (props.editing) {
     form = <Spinner />;
   }
   return (
     <div className={classes.Form}>
       <div className={classes.HeadDiv}>
         <span className={classes.Text1}><strong>Edit Multiple</strong></span>
-        <button className={classes.SaveBtn} onClick={()=>editCustomerHandler()} disabled={!formIsValid || !form2IsValid}>Update</button>
-        <button className={classes.CloseBtn} onClick={()=> props.editingClosed()}>Close</button>
+        <button className={classes.SaveBtn} onClick={()=>editMultipleHandler()}>Update</button>
+        <button className={classes.CloseBtn} onClick={()=> props.editingMultipleClosed()}>Close</button>
       </div>
       {form}
     </div>  
@@ -143,18 +141,18 @@ const EditCustomer = props => {
 
 const mapStateToProps = state => {
   return {
-    loading: state.customer.loading,
+    editing: state.multiple.editing,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onEditMultipe: (idArray,data) =>
-      dispatch(actions.editMultiple(idArray,data))
+    onEditMultiple: (idArray,property,value) =>
+      dispatch(actions.editMultiple(idArray,property,value))
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withErrorHandler(EditCustomer, axios));
+)(withErrorHandler(EditMultiple, axios));
