@@ -174,15 +174,21 @@
 
 @media(max-width:1700px){
     .Sidebar{
-        left:12em;
+        left:10em;
+    }
+    .SidebarTemp{
+        width: 26%;
     }
     .Customers{
-        width: 65%;
+        width: 60%;
     }
 }
 @media(max-width:1450px){
     .Workers{
         display: none;
+    }
+    .SidebarTemp{
+        width: 27%;
     }
 }
 @media(max-width:1250px){

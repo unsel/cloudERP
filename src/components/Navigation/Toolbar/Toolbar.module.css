@@ -56,13 +56,29 @@
     color:#36414c;
 }
 
-
+@media(max-width:1540px){
+    .Logo{
+        margin-left: 2em;
+    }
+    .Random1{
+        width: 11.6%;
+    }
+}
+@media(max-width:1420px){
+    
+    .Random1{
+        width: 10%;
+    }
+}
 @media (max-width: 1250px) {
     .Random0{
         width: 0%;
     }
     .Logo{
         margin-left: 1.5em;
+    }
+    .Random1{
+        width: 8%;
     }
 }
 
@@ -73,6 +89,9 @@
     .Searchbar {
         width: 1%;
         visibility: hidden;
+    }
+    .Random1{
+        width: 5%;
     }
     
 }

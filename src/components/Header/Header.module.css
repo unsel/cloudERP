@@ -24,7 +24,7 @@ h2{
 }
 .Buttons{
     float: right;
-    margin-right: 9em;
+    margin-right: 12em;
     outline:none;
 }
 .Buttons .First2,.NewBtn{
@@ -58,6 +58,19 @@ h2{
     color: white;
 }
 
+@media(max-width:1540px){
+    .TempDiv{
+        width:13%;
+    }
+}
+@media(max-width:1440px){
+    .Buttons{
+        margin-right: 10em;
+    }
+    .TempDiv{
+        width:14.5%;
+    }
+}
 @media(max-width:1300px){
     .Buttons{
         margin-right: 7em;
@@ -71,6 +84,11 @@ h2{
 @media(max-width:1000px){
     .Buttons{
         margin-right: 5em;
+    }
+}
+@media(max-width:900px){
+    .Buttons{
+        margin-right: 2em;
     }
 }
 @media(max-width:770px){
