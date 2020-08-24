@@ -24,7 +24,7 @@ const EditCustomer = props => {
         required: true
       },
       valid: true,
-      touched: true
+      touched: false
     },
     
     revenue: {
@@ -68,7 +68,7 @@ const EditCustomer = props => {
             
         },
         value: 'Company',
-        validation:{}, valid:true
+        validation:{}, valid:true ,touched:false
       }, 
   });
   const [contactForm,setContactForm] = useState({
@@ -94,24 +94,24 @@ const EditCustomer = props => {
     }
   });
 
-  const [formIsValid, setFormIsValid] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(true);
   const [form2IsValid,setForm2IsValid] = useState(true)
   const [contactFormOpen,setContactFormOpen] = useState(false)
 
 
   useEffect(()=>{
     const updatedForm = updateObject(customerForm,{
-        name: updateObject(customerForm.name,{value:props.customerData.name}),
-        workers:updateObject(customerForm.workers,{value:props.customerData.workers}),
-        revenue:updateObject(customerForm.revenue,{value:props.customerData.revenue}),
-        type:updateObject(customerForm.type,{value:props.customerData.type})
+        name: updateObject(customerForm.name,{value:props.customerData.name,valid:true,touched:false}),
+        workers:updateObject(customerForm.workers,{value:props.customerData.workers,valid:true,touched:false}),
+        revenue:updateObject(customerForm.revenue,{value:props.customerData.revenue,valid:true,touched:false}),
+        type:updateObject(customerForm.type,{value:props.customerData.type,valid:true,touched:false})
       })
     const updatedForm2 = updateObject(contactForm,{
-        mail:updateObject(contactForm.mail,{value:props.customerData.mail}),
-        phoneNumber:updateObject(contactForm.phoneNumber,{value:props.customerData.phoneNumber})
+        mail:updateObject(contactForm.mail,{value:props.customerData.mail,valid:true,touched:false}),
+        phoneNumber:updateObject(contactForm.phoneNumber,{value:props.customerData.phoneNumber,valid:true,touched:false})
       })
-      setCustomerForm(updatedForm)
-      setContactForm(updatedForm2)
+      setCustomerForm(updatedForm); setFormIsValid(true);
+      setContactForm(updatedForm2);  setForm2IsValid(true) ;
       
       // eslint-disable-next-line
   },[props.customerData])
@@ -132,6 +132,32 @@ const EditCustomer = props => {
   }
   const editCustomerHandler = event => {
     // event.preventDefault();
+    if(!(formIsValid && form2IsValid)){
+      let a=[];
+      for (const property in customerForm){
+        if(customerForm[property].validation.required && customerForm[property].value === ''){
+          a.push(customerForm[property].elementConfig.placehold)
+        }
+      }
+      for (const property in contactForm){
+          if(contactForm[property].validation.required && contactForm[property].value === ''){
+            a.push(contactForm[property].elementConfig.placehold)
+          }
+      }
+      let b = [];
+      for (const property in customerForm){
+        if(!customerForm[property].valid && customerForm[property].value !== ''){
+          b.push(customerForm[property].elementConfig.placehold)
+        }
+      }
+      for (const property in contactForm ){
+        if(!contactForm[property].valid && contactForm[property].value !== ''){
+            b.push(contactForm[property].elementConfig.placehold)
+          }
+      }
+      props.formModalOpener(a,b)
+      return
+    }
 
     let formData = {};
     for (let formElementIdentifier in customerForm) {
@@ -153,7 +179,7 @@ const EditCustomer = props => {
     props.onEditCustomer(props.customerData.id,customer);
     props.editingFinished();
     clearForm();
-    setFormIsValid(false); setForm2IsValid(true);
+    setFormIsValid(true); setForm2IsValid(true);
   };
 
   
@@ -236,7 +262,7 @@ const EditCustomer = props => {
     <div className={classes.Form}>
       <div className={classes.HeadDiv}>
         <span className={classes.Text1}><strong>Editing Customer</strong></span>
-        <button className={classes.SaveBtn} onClick={()=>editCustomerHandler()} disabled={!formIsValid || !form2IsValid}>Save</button>
+        <button className={classes.SaveBtn} onClick={()=>editCustomerHandler()}>Save</button>
         <button className={classes.CloseBtn} onClick={()=> props.editingClosed()}>Close</button>
         <button className={classes.ResetBtn} onClick={()=>clearForm()} >Reset</button>
       </div>

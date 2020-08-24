@@ -10,7 +10,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-import classes from './customers.module.css';
+import classes from './Customers.module.css';
 import Header from '../../components/Header/Header';
 import Modal from '../../components/UI/Modal/Modal';
 
@@ -294,6 +294,7 @@ const sortBy = (a,b) => {
               customerData={editForm}
               editingFinished={()=>editingFinishedHandler()}
               editingClosed={()=>editingClosedHandler()}
+              formModalOpener={(a,b)=>formModalOpener(a,b)}
               />
           </Modal>
           <Header
