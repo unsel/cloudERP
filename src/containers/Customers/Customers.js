@@ -296,10 +296,8 @@ const sortBy = (a,b) => {
               </div>
           </Modal>
   )
-  return (
-      <div >
-          {errorModal}
-          <Modal show={editingMultiple} modalClosed={()=>editingMultipleClosedHandler() } modalType='Modal1'>
+  const editMultipleModal = (
+    <Modal show={editingMultiple} modalClosed={()=>editingMultipleClosedHandler() } modalType='Modal1'>
             <EditMultiple
               idArray={selectedItems}
               editedMultipleHandler={()=>editedMultipleHandler()}
@@ -307,29 +305,43 @@ const sortBy = (a,b) => {
               clearChecked={()=>clearChecked()}
               formModalOpener={(a,b)=>formModalOpener(a,b)}/>
           </Modal>
-          <Modal show={addingNew} modalClosed={()=>addingClosedHandler() } modalType='Modal1'>
-            <AddCustomer
-              addedNew={()=>addedNewHandler()}
-              closeNew={()=>addingClosedHandler()}
-              clearChecked={()=>clearChecked()}
-              formModalOpener={(a,b)=>formModalOpener(a,b)}/>
-          </Modal>
-          <Modal show={editing} modalClosed={()=>editingClosedHandler()} modalType='Modal1'>
-            <EditCustomer
-              customerData={editForm}
-              editingFinished={()=>editingFinishedHandler()}
-              editingClosed={()=>editingClosedHandler()}
-              formModalOpener={(a,b)=>formModalOpener(a,b)}
-              />
-          </Modal>
-          <Header
-            name = {"Customers"}
-            addingHandler = {()=>addingNewHandler()} 
-            refreshHandler={()=>refreshHandler()}
-            dropdown={selectedItems.length?dropdown:null}/>
+  )
+  const addCustomerModal = (
+    <Modal show={addingNew} modalClosed={()=>addingClosedHandler() } modalType='Modal1'>
+      <AddCustomer
+        addedNew={()=>addedNewHandler()}
+        closeNew={()=>addingClosedHandler()}
+        clearChecked={()=>clearChecked()}
+        formModalOpener={(a,b)=>formModalOpener(a,b)}/>
+    </Modal>
+  )
+  const editCustomerModal = (
+    <Modal show={editing} modalClosed={()=>editingClosedHandler()} modalType='Modal1'>
+      <EditCustomer
+        customerData={editForm}
+        editingFinished={()=>editingFinishedHandler()}
+        editingClosed={()=>editingClosedHandler()}
+        formModalOpener={(a,b)=>formModalOpener(a,b)}
+        />
+    </Modal>
+  )
+  const header = (
+    <Header
+      name = {"Customers"}
+      addingHandler = {()=>addingNewHandler()} 
+      refreshHandler={()=>refreshHandler()}
+      dropdown={selectedItems.length?dropdown:null}/>
+  )
+  return (
+      <div >
+          {errorModal}
+          {editMultipleModal}
+          {addCustomerModal}
+          {editCustomerModal}
+          {header}
           {sideBar}
           <div className={classes.Content}>
-            <div  className={classes.SidebarTemp}></div>
+            <div className={classes.SidebarTemp}></div>
             <div className={classes.Customers}>
             {/* <button id="bu" onClick={()=>setBrowserWidth(document.documentElement.clientWidth)}>WIDTH</button>
           {browserWidth} */}
