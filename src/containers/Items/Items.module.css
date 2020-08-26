@@ -1,0 +1,256 @@
+.Content{
+    border-top: 1px solid #d8d8d8;
+}
+.Sidebar{
+    position: fixed;
+    display: inline-block;
+    height: 500px;
+    width: 14%;
+    top: 120px;
+    left: 16em;
+    background-color: #ffffff;
+    padding: 18px 0px 5px 0px;
+    
+    padding-left: auto;
+    z-index: 100;
+}
+.Sidebar li{
+    list-style-type:none;
+    font-size: 14px;
+    color: #36414c;
+    margin:7px 0px;
+}
+.Sidebar li:first-child{
+    font-size:11px;
+    color:#8d99a6;
+    margin: 0px;
+}
+.SidebarTemp{
+    width: 30%;
+    display: inline-block;
+}
+.WidthMaker1{
+    display: inline-block;
+    width: 25%;
+}
+.Items{
+    margin-top: 50px;
+    width: 53%;
+    display: inline-block;
+    border-left: 1px solid #d8d8d8; border-right: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+    min-height: 560px;
+    margin-bottom: 100px;
+}
+
+.FilterForm{
+    text-align: center;
+    background-color: #F7FAFC;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.FilterDiv{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.FilterDiv button{
+    border: none;
+    border-radius: 4px;
+    color: #565c61;
+    background-color: #d3dae0;
+    font-size: 12px;
+    height: 2em;
+    margin-right: 15px;
+}
+.FilterForm input{
+    font-size: 12px;
+    margin: 10px;
+    outline: none;
+    border: 1px solid gray;
+    border-radius:5px;
+    padding-top: 3px; padding-bottom: 3px; padding-left: 6px;
+}
+
+
+.HeadDiv {
+    height: 50px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 2px #ccc;
+    box-sizing: border-box;
+    background-color: #F7FAFC;
+    padding: 4px 10px  10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.HeadDiv p{
+    color:#8D99A6;
+    /* font-size: 12px; */
+
+}
+.HeadDiv input{
+    float: left;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+.HeadDiv Button{
+    margin-left: 5px;
+    border: none;
+    border-radius: 2px;
+    height: 2em;
+}
+.ModalHeadDiv{
+    padding: 10px 10px 15px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 15px;
+}
+.ModalHeadDiv Button{
+    margin-left: 5px;
+    border: none;
+    border-radius: 2px;
+    height: 2em;
+}
+.Name , .Others , .Workers,.ItemCount{
+    display: inline-block;
+    width: 20%;
+    overflow: hidden;
+    margin-right: 10px;
+    font: 13px Helvetica ;
+    color: #36414C;
+}
+.ItemCount{
+    width: 40%;
+}
+.Rate{
+    float: right;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 10px 10px 0px 0px;
+}
+
+
+.Text1{
+    display:inline-block;
+    margin-left: 10px;
+}
+
+.Missing{
+    margin-left: 25px;
+}
+.Missing ul{
+    margin-top: 15px;
+}
+
+
+.CloseBtn{
+    float: right;
+}
+.ItemsHeight{
+    min-height: 500px;
+}
+.countDiv{
+    border-top: 1px solid #d8d8d8;
+    padding-top: 7px;
+    padding-left: 20px;
+    margin-bottom: 7px;
+}
+.MyNormal{
+    border: none;
+    background-color: #F0F4F7;
+    color: #36414c;
+    padding: 8px 12px;
+    font-size: 12px;
+    outline:none;
+}
+.countDiv button:focus{
+    outline: none;
+}
+.MyFocus{
+    border: none;
+    background-color: #8D99A6;
+    color: white;
+    padding: 8px 12px;
+    font-size: 12px;
+    outline: 0;
+}
+
+@media(max-width:1700px){
+    .Sidebar{
+        left:10em;
+    }
+    .SidebarTemp{
+        width: 26%;
+    }
+    .Items{
+        width: 60%;
+    }
+}
+@media(max-width:1450px){
+    .Workers{
+        display: none;
+    }
+    .SidebarTemp{
+        width: 27%;
+    }
+}
+@media(max-width:1250px){
+    .WidthMaker1{
+        display: none;
+    }
+    .Sidebar{
+        left:1em;
+    }
+    .SidebarTemp{
+        width: 20%;
+    }
+    .Items{
+        width: 70%;
+    }
+}
+@media(max-width:1000px){
+    .Sidebar{
+        left: 0em;
+    }
+    .SidebarTemp{
+        width: 20%;
+    }
+    .Items{
+        width: 70%;
+    }
+    
+}
+@media(max-width:900px){
+    .Sidebar{
+        display: none;
+    }
+    .SidebarTemp {
+        width: 4%;
+    }
+    .Items{
+        width:92%
+    }
+    
+}
+
+@media(max-width:700px){
+    .Others {
+        display: none;
+    }
+    .Name{
+        width:30%
+    }
+    
+}
+@media(max-width:300px){
+    .Others {
+        display: none;
+    }
+    .Name{
+        width:50%
+    }
+    .NameFilter , .WorkerFilter{
+        width:70%;
+    }
+    .FilterDiv{
+        display: none;
+    }
+}
+

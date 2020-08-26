@@ -19,10 +19,14 @@ const App = props => {
   const Customers = React.lazy(() => {
     return import('./containers/Customers/Customers');
   });
+  const Items = React.lazy(() => {
+    return import('./containers/Items/Items');
+  })
   let routes = (
     <Switch>
       <Route path="/spin" render={props => <Spinner />} />
       <Route path="/customers" render={props => <Customers {...props} />} />
+      <Route path="/items" render={props => <Items {...props} />} />
       <Route path="/" render={props => <Rootpage/>} />
       <Redirect to="/" />
     </Switch>

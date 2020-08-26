@@ -11,12 +11,14 @@ import './index.module.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import customerReducer from './store/reducers/customer';
+import itemReducer from './store/reducers/item';
 import multipleReducer from './store/reducers/multiple';
 
 const composeEnhancers = ( process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null )|| compose;
 
 const rootReducer = combineReducers({
     customer: customerReducer,
+    item:itemReducer,
     multiple: multipleReducer
 });
 

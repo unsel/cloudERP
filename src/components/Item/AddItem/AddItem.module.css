@@ -1,0 +1,68 @@
+.Form {
+    margin: 10px 0px;
+    width: 100%;
+}
+
+
+.HeadDiv{
+    padding: 10px 10px 15px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 15px;
+}
+.HeadDiv Button{
+    margin-left: 5px;
+    border: none;
+    border-radius: 2px;
+    height: 2em;
+}
+.Text1{
+    display:inline-block;
+    margin-left: 10px;
+}
+.SaveBtn{
+    float: right; 
+    background-color: #5e64ff;
+    color: white;
+}
+.ExamplesBtn{
+    float: right;
+    background-color: #5e64ff;
+    color: white;
+}
+.CloseBtn{
+    float: right;
+}
+.CloseBtnSmall{
+    float: right;
+    padding:0px 10px;
+    display: none;
+    background-color: #f0f4f7;
+}
+.ResetBtn{
+    float: right;
+}
+
+
+.form2{
+    border-top: 1px solid #e5e5e5;
+    margin: 15px 0px;
+}
+.form2 p{
+    font-weight: 600;
+    font-size: 13px;
+    color: gray;
+    display: block;
+    margin-bottom: 15px;
+    margin-left: 11px;
+}
+
+@media(max-width:800px){
+    .CloseBtn,.ResetBtn,.ExamplesBtn{
+        display: none;
+    }
+    .CloseBtnSmall{
+        display: inline-block;
+    }
+    
+}
+

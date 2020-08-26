@@ -8,6 +8,15 @@ export {
     editCustomerInit,
     fetchCustomers
 } from './customer';
+export {
+    addItem,
+    addItemInit,
+    removeItem,
+    removeItemInit,
+    editItem,
+    editItemInit,
+    fetchItems
+} from './item';
 
 export {
     editMultiple

@@ -1,8 +1,10 @@
 .Home{
     border: 1px solid green;
+    border-radius: 5px;
     display: inline-block;
     width: 53%;
     margin-top: 30px; 
+    margin-bottom: 20px;
 }
 .HomeWrapper{
     padding-left:15px;
@@ -35,8 +37,7 @@
 
 .Cards{
     min-height: 250px;
-    
-    
+    width:30.56% 
 }
 .Reports{
     margin-left: 15px;
@@ -53,6 +54,14 @@
 }
 .CardItem:hover{
     text-decoration:none;
+}
+.dots{
+    font-size: 12px;
+    font-weight: 500;
+}
+.dots div{
+    display: inline-block;
+    padding: 6px 12px;
 }
 
 
@@ -71,8 +80,11 @@
     }
 }
 @media(max-width:1130px){
-   .ilkler , .Cards{
+   .ilkler {
        width: 47%;
+   }
+   .Cards{
+       width: 46.16%;
    }
    
 }
@@ -91,8 +103,11 @@
     
 }
 @media(max-width:780px){
-    .ilkler , .Cards{
+    .ilkler{
         width: 97%;
+    }
+    .Cards{
+        width: 95%;
     }
 }
 

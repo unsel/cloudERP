@@ -14,7 +14,7 @@ const Home = props => {
             <div className={classes.HomeWrapper}> 
                 <div className={classes.Shortcuts}>
                         <h6 className={classes.MiniTitle}>Your Shortcuts</h6>
-                        <Link to="/customers"><div className={classes.ilkler}>Item</div></Link>
+                        <Link to="/items"><div className={classes.ilkler}>Items</div></Link>
                         <Link to="/customers"><div className={classes.ilkler}>Customers</div></Link>
                         <Link to="/customers"><div className={classes.ilkler}>Suppliers</div></Link>
                         <Link to="/customers"><div className={classes.ilkler}>Sales Invoice</div></Link>
@@ -65,6 +65,10 @@ const Home = props => {
                         </div>
                     </div>
                 </div>
+                <div className={classes.dots}>
+                    <div><FontAwesomeIcon icon="circle" color='#5e64ff' size='xs'/><span>&nbsp;Important</span></div> 
+                    <div><FontAwesomeIcon icon="circle" color='#ffa00a' size='xs'/><span>&nbsp;No Records Created</span></div> 
+               </div>
             </div>
         </div>
     )

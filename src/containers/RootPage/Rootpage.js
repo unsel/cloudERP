@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import classes from './Rootpage.module.css';
 
 import Home from '../../components/RootComponents/Home/Home';
