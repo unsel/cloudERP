@@ -36,7 +36,19 @@ const Items = props => {
   const [formInvalidInfo,setFormInvalidInfo]= useState([]);
   const [itemCount,setItemCount] = useState([true,false,false])
 
-
+  useEffect(()=>{
+    const escFunction =(event)=>{
+      if(event.keyCode === 27) {
+        if(formModalOpen){setFormModalOpen(false); return}
+        if(addingNew){setAddingNew(false); return}
+        if(editing){setEditing(false); return}
+      }
+    }
+    document.addEventListener("keydown", escFunction, false);
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  })
   useEffect(() => {
     onFetchItems();
   }, [onFetchItems]);

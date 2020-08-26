@@ -90,6 +90,10 @@ h2{
     .Buttons{
         margin-right: 2em;
     }
+    h2{
+        font-weight: 500;
+        font-size: 22px;
+    }
 }
 @media(max-width:770px){
     .TempDiv{

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect} from 'react';
 import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -36,18 +36,30 @@ const Customers = props => {
   const [formInvalidInfo,setFormInvalidInfo]= useState([]);
   const [itemCount,setItemCount] = useState([true,false,false])
 
-
+  useEffect(()=>{
+    const escFunction =(event)=>{
+      if(event.keyCode === 27) {
+        if(formModalOpen){setFormModalOpen(false); return}
+        if(addingNew){setAddingNew(false); return}
+        if(editing){setEditing(false); return}
+      }
+    }
+    document.addEventListener("keydown", escFunction, false);
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  })
   useEffect(() => {
     onFetchCustomers(/*props.token, props.userId*/);
   }, [onFetchCustomers]);
  
-const sortBy = (a,b) => {
-    if(sortFilter === "name"){
-    return a[sortFilter] > b[sortFilter] ? sortOrder:-sortOrder;
-    } else if (sortFilter ==="workers" || sortFilter ==="revenue"){
-      return +a[sortFilter] > +b[sortFilter] ? sortOrder:-sortOrder;
+    const sortBy = (a,b) => {
+      if(sortFilter === "name"){
+      return a[sortFilter] > b[sortFilter] ? sortOrder:-sortOrder;
+      } else if (sortFilter ==="workers" || sortFilter ==="revenue"){
+        return +a[sortFilter] > +b[sortFilter] ? sortOrder:-sortOrder;
+      }
     }
-  }
 
   let dropdown = <DropdownButton
                   alignRight

@@ -16,7 +16,8 @@
 }
 .Sidebar li{
     list-style-type:none;
-    font-size: 14px;
+    font-size: 13.4px;
+    font-weight: 500;
     color: #36414c;
     margin:7px 0px;
 }
@@ -34,7 +35,7 @@
     width: 25%;
 }
 .Customers{
-    margin-top: 50px;
+    margin-top: 82px;
     width: 53%;
     display: inline-block;
     border-left: 1px solid #d8d8d8; border-right: 1px solid #d8d8d8;
