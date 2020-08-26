@@ -144,11 +144,11 @@
     float: right;
 }
 .ItemsHeight{
-    min-height: 500px;
+    min-height: 400px;
 }
 .countDiv{
     border-top: 1px solid #d8d8d8;
-    padding-top: 7px;
+    padding-top: 13px;
     padding-left: 20px;
     margin-bottom: 7px;
 }

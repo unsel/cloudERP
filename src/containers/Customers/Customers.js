@@ -10,7 +10,7 @@ import axios from '../../axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
-
+import NotFound from '../../components/UI/NotFound/NotFound';
 import classes from './Customers.module.css';
 import Header from '../../components/Header/Header';
 import Modal from '../../components/UI/Modal/Modal';
@@ -34,7 +34,6 @@ const Customers = props => {
   const [formModalOpen,setFormModalOpen] = useState(false)   // Form Warning
   const [formMissingInfo,setFormMissingInfo]= useState([]);
   const [formInvalidInfo,setFormInvalidInfo]= useState([]);
-  const [browserWidth,setBrowserWidth] = useState(document.documentElement.clientWidth)
   const [itemCount,setItemCount] = useState([true,false,false])
 
 
@@ -65,7 +64,7 @@ const sortBy = (a,b) => {
                 </DropdownButton>
   let customers = <Spinner />;
   if (!props.loading) {
-    customers= [...props.customers].slice(0,itemCount[0]?20:(itemCount[1]?50:100)).sort(sortBy)
+    customers= !props.customers.length ? <NotFound create={()=>addingNewHandler()}  elementName='Customer'/> :[...props.customers].slice(0,itemCount[0]?20:(itemCount[1]?50:100)).sort(sortBy)
             .filter(customer => (customer.name.includes(nameFilter) || +customer.workers < workerFilter) )
             .map(customer => (
       <Customer
@@ -152,6 +151,8 @@ const sortBy = (a,b) => {
   }
 
   const resetFilters = () => {
+    setNameFilter(""); setWorkerFilter("tempWorkerFilter");
+    setTempNameFilter(""); setTempWorkerFilter("");
     setSortFilter("");
   }
   const applyFilters = () => {
@@ -235,13 +236,13 @@ const sortBy = (a,b) => {
             <p className={classes.Workers} onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>
             <p className={classes.Others} > <strong>Type </strong></p>
             <span className={classes.Rate}>
-               {props.customers.length<=20 ? props.customers.length: (itemCount[0]) ? 20 :( props.customers.length <= 50 ? props.customers.length : (itemCount[1]? 50 :(props.customers.length <= 100 ? props.customers.length :100)))}  of {props.customers.length}
+               {props.loading ? '?' : !customers[0] ? 0 :customers.length<=20 ? customers.length: (itemCount[0]) ? 20 :( customers.length <= 50 ? customers.length : (itemCount[1]? 50 :(customers.length <= 100 ? customers.length :100)))}  of {props.customers.length}
             </span> 
             
             </div>
             : <div><p className={classes.ItemCount}>{selectedItems.length + ' items selected'}</p>
             <span className={classes.Rate}>
-            {props.customers.length<=20 ? props.customers.length: (itemCount[0]) ? 20 :( props.customers.length <= 50 ? props.customers.length : (itemCount[1]? 50 :(props.customers.length <= 100 ? props.customers.length :100)))}  of {props.customers.length}</span>  
+              {props.loading ? '?' : !customers[0] ? 0 : customers.length<=20 ? customers.length: (itemCount[0]) ? 20 :( customers.length <= 50 ? customers.length : (itemCount[1]? 50 :(customers.length <= 100 ? customers.length :100)))}  of {props.customers.length}</span>  
             </div>
                         }
         </div>
@@ -332,6 +333,7 @@ const sortBy = (a,b) => {
       refreshHandler={()=>refreshHandler()}
       dropdown={selectedItems.length?dropdown:null}/>
   )
+  
   return (
       <div >
           {errorModal}
@@ -343,8 +345,7 @@ const sortBy = (a,b) => {
           <div className={classes.Content}>
             <div className={classes.SidebarTemp}></div>
             <div className={classes.Customers}>
-            {/* <button id="bu" onClick={()=>setBrowserWidth(document.documentElement.clientWidth)}>WIDTH</button>
-          {browserWidth} */}
+            
               {filterForm}
               {headDiv}
               <div className={classes.CustomersHeight}>{customers}</div>

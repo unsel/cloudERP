@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from '../UI/Spinner/Spinner';
@@ -42,7 +42,9 @@ const EditMultiple = props => {
       }, 
   });
   
+   // eslint-disable-next-line
   const [formIsValid, setFormIsValid] = useState(false);
+  
 
   // useEffect(()=>{
   //   const updatedForm = updateObject(editMultipleForm,{

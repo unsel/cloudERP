@@ -10,7 +10,7 @@ import axios from '../../axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
-
+import NotFound from '../../components/UI/NotFound/NotFound';
 import classes from './Items.module.css';
 import Header from '../../components/Header/Header';
 import Modal from '../../components/UI/Modal/Modal';
@@ -34,12 +34,11 @@ const Items = props => {
   const [formModalOpen,setFormModalOpen] = useState(false)   // Form Warning
   const [formMissingInfo,setFormMissingInfo]= useState([]);
   const [formInvalidInfo,setFormInvalidInfo]= useState([]);
-  const [browserWidth,setBrowserWidth] = useState(document.documentElement.clientWidth)
   const [itemCount,setItemCount] = useState([true,false,false])
 
 
   useEffect(() => {
-    onFetchItems(/*props.token, props.userId*/);
+    onFetchItems();
   }, [onFetchItems]);
  
 const sortBy = (a,b) => {
@@ -65,7 +64,7 @@ const sortBy = (a,b) => {
                 </DropdownButton>
   let items = <Spinner />;
   if (!props.loading) {
-    items= [...props.items].slice(0,itemCount[0]?20:(itemCount[1]?50:100)).sort(sortBy)
+    items= !props.items.length ? <NotFound create={()=>addingNewHandler()} elementName='Item'/> :[...props.items].slice(0,itemCount[0]?20:(itemCount[1]?50:100)).sort(sortBy)
             .filter(item => (item.name.includes(nameFilter) || +item.workers < workerFilter) )
             .map(item => (
       <Item
@@ -235,13 +234,13 @@ const sortBy = (a,b) => {
             <p className={classes.Workers} onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>
             <p className={classes.Others} > <strong>Type </strong></p>
             <span className={classes.Rate}>
-               {props.items.length<=20 ? props.items.length: (itemCount[0]) ? 20 :( props.items.length <= 50 ? props.items.length : (itemCount[1]? 50 :(props.items.length <= 100 ? props.items.length :100)))}  of {props.items.length}
+               {props.loading ? '?' : !items[0] ? 0 :items.length<=20 ? items.length: (itemCount[0]) ? 20 :( items.length <= 50 ? items.length : (itemCount[1]? 50 :(items.length <= 100 ? items.length :100)))}  of {props.items.length}
             </span> 
             
             </div>
             : <div><p className={classes.ItemCount}>{selectedItems.length + ' items selected'}</p>
             <span className={classes.Rate}>
-            {props.items.length<=20 ? props.items.length: (itemCount[0]) ? 20 :( props.items.length <= 50 ? props.items.length : (itemCount[1]? 50 :(props.items.length <= 100 ? props.items.length :100)))}  of {props.items.length}</span>  
+               {props.loading ? '?' :  !items[0] ? 0 : items.length<=20 ? items.length: (itemCount[0]) ? 20 :( items.length <= 50 ? items.length : (itemCount[1]? 50 :(items.length <= 100 ? items.length :100)))}  of {props.items.length}</span>  
             </div>
                         }
         </div>
