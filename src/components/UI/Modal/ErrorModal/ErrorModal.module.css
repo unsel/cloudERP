@@ -1,0 +1,22 @@
+.ModalHeadDiv{
+    padding: 10px 10px 15px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 15px;
+}
+.ModalHeadDiv Button{
+    margin-left: 5px;
+    border: none;
+    border-radius: 2px;
+    height: 2em;
+    float: right;
+}
+.Text1{
+    display:inline-block;
+    margin-left: 10px;
+}
+.Missing{
+    margin-left: 25px;
+}
+.Missing ul{
+    margin-top: 15px;
+}

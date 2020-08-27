@@ -8,153 +8,99 @@ import Input from '../../UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
 import { updateObject, checkValidity } from '../../../shared/utility';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const EditItem = props => {
   
   const [itemForm, setItemForm] = useState({
-    name: {
+    itemCode: {
       elementType: 'input',
       elementConfig: {
         type: 'text',
-        placehold: 'Name'
+        placehold: 'Item Code'
       },
       value: '',
-      validation: {
-        required: true
-      },
-      valid: true,
-      touched: false
+      validation: { required: true },
+      valid: false, touched: false
     },
-    
-    revenue: {
+    itemName: {
       elementType: 'input',
       elementConfig: {
-        type: 'number',
-        placehold: 'Revenue'
+        type: 'text',
+        placehold: 'Item Name'
       },
-      value:  '',
-      validation: {
-        required: true,
-        minLength: 1,
-        maxLength: 7,
-        isNumeric: true
-      },
-      valid: true,
-      touched: false
+      value: '',
+      validation: { required: true },
+      valid: false, touched: false
     },
-    workers: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'number',
-          placehold: 'Workers'
-        },
-        value:  '',
-        validation: {
-          required: true,
-          minLength: 1,
-          maxLength: 7,
-          isNumeric: true
-        },
-        valid: true,
-        touched: false
+    itemGroup: {
+      elementType:'select',
+      elementConfig:{
+          options:[{value:'Consumables',displayValue:'Consumables'},
+                   {value:'Raw',displayValue:'Raw Material'},
+                   {value:'Product',displayValue:'Product'}
+                  ],
+          placehold:'Unit'
+          
       },
-      type : {
-        elementType:'select',
-        elementConfig:{
-            options:[{value:'Company',displayValue:'Company'},
-                     {value:'Individual',displayValue:'Individual'}],
-            placehold:'Type'
-            
-        },
-        value: 'Company',
-        validation:{}, valid:true ,touched:false
-      }, 
+      value: 'Consumables',
+      validation:{}, valid:true
+    }, 
+    unit : {
+      elementType:'select',
+      elementConfig:{
+          options:[{value:'Unit',displayValue:'Unit'},
+                   {value:'Kg',displayValue:'Kg'},
+                   {value:'Meter',displayValue:'Meter'}
+                  ],
+          placehold:'Unit'
+          
+      },
+      value: 'Unit',
+      validation:{}, valid:true
+    },
   });
-  const [contactForm,setContactForm] = useState({
-    mail: {
-      elementType: 'input',
-      elementConfig: {
-        type: 'email',
-        placehold: 'Mail'
-      },
-      value: '',
-      validation: { required: false , isEmail:true },
-      valid: true, touched: false
-    },
-    phoneNumber: {
-      elementType: 'input',
-      elementConfig: {
-        type: 'number',
-        placehold: 'PhoneNo'
-      },
-      value: '',
-      validation: { required: false,minLength:3 },
-      valid: true, touched: false
-    }
-  });
-
+  
+  
   const [formIsValid, setFormIsValid] = useState(true);
-  const [form2IsValid,setForm2IsValid] = useState(true)
-  const [contactFormOpen,setContactFormOpen] = useState(false)
 
 
   useEffect(()=>{
     const updatedForm = updateObject(itemForm,{
-        name: updateObject(itemForm.name,{value:props.itemData.name,valid:true,touched:false}),
-        workers:updateObject(itemForm.workers,{value:props.itemData.workers,valid:true,touched:false}),
-        revenue:updateObject(itemForm.revenue,{value:props.itemData.revenue,valid:true,touched:false}),
-        type:updateObject(itemForm.type,{value:props.itemData.type,valid:true,touched:false})
-      })
-    const updatedForm2 = updateObject(contactForm,{
-        mail:updateObject(contactForm.mail,{value:props.itemData.mail,valid:true,touched:false}),
-        phoneNumber:updateObject(contactForm.phoneNumber,{value:props.itemData.phoneNumber,valid:true,touched:false})
+        itemName: updateObject(itemForm.itemName,{value:props.itemData.itemName,valid:true,touched:false}),
+        itemGroup:updateObject(itemForm.itemGroup,{value:props.itemData.itemGroup,valid:true,touched:false}),
+        itemCode:updateObject(itemForm.itemCode,{value:props.itemData.itemCode,valid:true,touched:false}),
+        unit:updateObject(itemForm.unit,{value:props.itemData.unit,valid:true,touched:false})
       })
       setItemForm(updatedForm); setFormIsValid(true);
-      setContactForm(updatedForm2);  setForm2IsValid(true) ;
-      
       // eslint-disable-next-line
   },[props.itemData])
 
   const clearForm = () =>{
     const updatedForm = updateObject(itemForm,{
-      name: updateObject(itemForm.name,{value:""}),
-      workers:updateObject(itemForm.workers,{value:''}),
-      revenue:updateObject(itemForm.revenue,{value:''}),
-      // type:updateObject(itemForm.type,{value:'Individual'})
-    })
-    const updatedForm2 = updateObject(contactForm,{
-      mail:updateObject(contactForm.mail,{value:''}),
-      phoneNumber:updateObject(contactForm.phoneNumber,{value:''})
+      itemName: updateObject(itemForm.itemName,{value:"",valid:false,touched:false}),
+      itemCode:updateObject(itemForm.itemCode,{value:'',valid:false,touched:false}),
+      itemGroup:updateObject(itemForm.itemGroup,{value:'Consumables',valid:false,touched:false}),
+      unit:updateObject(itemForm.unit,{value:'Unit',valid:false,touched:false}),
     })
     setItemForm(updatedForm)
-    setContactForm(updatedForm2)
   }
   const editItemHandler = event => {
     // event.preventDefault();
-    if(!(formIsValid && form2IsValid)){
+    if(!formIsValid){
       let a=[];
       for (const property in itemForm){
         if(itemForm[property].validation.required && itemForm[property].value === ''){
           a.push(itemForm[property].elementConfig.placehold)
         }
       }
-      for (const property in contactForm){
-          if(contactForm[property].validation.required && contactForm[property].value === ''){
-            a.push(contactForm[property].elementConfig.placehold)
-          }
-      }
+      
       let b = [];
       for (const property in itemForm){
         if(!itemForm[property].valid && itemForm[property].value !== ''){
           b.push(itemForm[property].elementConfig.placehold)
         }
       }
-      for (const property in contactForm ){
-        if(!contactForm[property].valid && contactForm[property].value !== ''){
-            b.push(contactForm[property].elementConfig.placehold)
-          }
-      }
+      
       props.formModalOpener(a,b)
       return
     }
@@ -163,36 +109,32 @@ const EditItem = props => {
     for (let formElementIdentifier in itemForm) {
       formData[formElementIdentifier] = itemForm[formElementIdentifier].value;
     }
-    for (let formElementIdentifier in contactForm) {
-      formData[formElementIdentifier] = contactForm[formElementIdentifier].value;
-    }
+   
     const item = {
-      name:formData.name,
-      revenue:formData.revenue,
-      workers:formData.workers,
-      type:formData.type,
+       itemName:formData.itemName,
+      itemCode:formData.itemCode,
+      itemGroup:formData.itemGroup,
+      unit:formData.unit,
       status:'Enabled',
-      mail:formData.mail,
-      phoneNumber:formData.phoneNumber
     };
 
     props.onEditItem(props.itemData.id,item);
     props.editingFinished();
     clearForm();
-    setFormIsValid(true); setForm2IsValid(true);
+    setFormIsValid(true);
   };
 
   
-  const inputChangedHandler = (event, inputIdentifier,form) => {
-    const updatedFormElement = updateObject(form[inputIdentifier], {
+  const inputChangedHandler = (event, inputIdentifier) => {
+    const updatedFormElement = updateObject(itemForm[inputIdentifier], {
       value: event.target.value,
       valid: checkValidity(
         event.target.value,
-        form[inputIdentifier].validation
+        itemForm[inputIdentifier].validation
       ),
       touched: true
     });
-    const updatedItemForm = updateObject(form, {
+    const updatedItemForm = updateObject(itemForm, {
       [inputIdentifier]: updatedFormElement
     });
 
@@ -200,11 +142,11 @@ const EditItem = props => {
     for (let inputIdentifier in updatedItemForm) {
       formIsValid = updatedItemForm[inputIdentifier].valid && formIsValid;
     }
-    if(form === itemForm){setItemForm(updatedItemForm);setFormIsValid(formIsValid);}
-    if(form === contactForm){setContactForm(updatedItemForm);setForm2IsValid(formIsValid);}
+    setItemForm(updatedItemForm);
+    setFormIsValid(formIsValid);
   };
 
-  const formElementsArray = []; const formElementsArray2=[];
+  const formElementsArray = [];
   const arrayFiller = (itemForm,formElementsArray) => {
     for (let key in itemForm) {
       formElementsArray.push({
@@ -214,7 +156,6 @@ const EditItem = props => {
     }
   }
   arrayFiller(itemForm,formElementsArray)
-  arrayFiller(contactForm,formElementsArray2)
   let form = (
     <form onSubmit={editItemHandler}>
       {formElementsArray.map(formElement => (
@@ -232,27 +173,7 @@ const EditItem = props => {
       ))}
     </form>
   );
-  let form2 = (
-    <div className={classes.form2}>
-      <p className={classes.FormHeader} >PRIMARY CONTACT DETAILS &nbsp; <FontAwesomeIcon onClick={()=>{setContactFormOpen(!contactFormOpen)}} icon={contactFormOpen?'angle-up':'angle-down'}/></p>
-      {contactFormOpen ? 
-    <form  onSubmit={editItemHandler}>
-      {formElementsArray2.map(formElement => (
-        <Input
-          key={formElement.id}
-          label={formElement.config.elementConfig.placehold}
-          elementType={formElement.config.elementType}
-          elementConfig={formElement.config.elementConfig}
-          value={formElement.config.value}
-          invalid={!formElement.config.valid}
-          shouldValidate={formElement.config.validation}
-          touched={formElement.config.touched}
-          changed={event => inputChangedHandler(event, formElement.id,contactForm)}
-        />
-      ))}
-    </form> : null}
-    </div>
-  );
+  
   if (props.loading) {
     form = <Spinner />;
   }
@@ -267,7 +188,6 @@ const EditItem = props => {
         <button className={classes.ResetBtn} onClick={()=>clearForm()} >Reset</button>
       </div>
       {form}
-      {form2}
     </div>  
   );
 };

@@ -14,6 +14,7 @@ import NotFound from '../../components/UI/NotFound/NotFound';
 import classes from './Customers.module.css';
 import Header from '../../components/Header/Header';
 import Modal from '../../components/UI/Modal/Modal';
+import ErrorModal from '../../components/UI/Modal/ErrorModal/ErrorModal';
 
 import {Dropdown,DropdownButton} from 'react-bootstrap';
 
@@ -286,28 +287,14 @@ const Customers = props => {
       </ul>
     </div>
   )
+ 
   const errorModal = (
-            <Modal show={formModalOpen} modalClosed={()=>{setFormModalOpen(false)}} modalType='Modal2'>
-              <div className={classes.FormModal}>
-                <div className={classes.ModalHeadDiv}>
-                  <span className={classes.Text1}>
-                    {formMissingInfo[0] ? <strong><FontAwesomeIcon icon="circle" color="orange" size='xs'/> Missing Values Required</strong>
-                                      : <strong><FontAwesomeIcon icon="circle" color="red" size='xs'/> Message</strong>}
-                      
-                    </span>
-                      
-                  <button className={classes.CloseBtn} onClick={()=>{setFormModalOpen(false)}}>Close</button>
-                </div>
-                <div className={classes.Missing}>
-                  {formMissingInfo[0] ? <p>Following fields have missing values:</p> : <p>Following fields have invalid information:</p>}
-                  <ul>
-                  {formMissingInfo[0]  ? formMissingInfo.map((el,i)=>{return <li>{el}</li>})  
-                                       : formInvalidInfo.map((el,i)=>{return <li>{el}</li>}) }
-                  
-                  </ul>
-                </div>
-              </div>
-          </Modal>
+      <ErrorModal 
+        formModalOpen={formModalOpen}
+        setFormModalOpen={()=>setFormModalOpen(false)}
+        formMissingInfo={formMissingInfo}
+        formInvalidInfo={formInvalidInfo}
+      />
   )
   const editMultipleModal = (
     <Modal show={editingMultiple} modalClosed={()=>editingMultipleClosedHandler() } modalType='Modal1'>
@@ -357,7 +344,6 @@ const Customers = props => {
           <div className={classes.Content}>
             <div className={classes.SidebarTemp}></div>
             <div className={classes.Customers}>
-            
               {filterForm}
               {headDiv}
               <div className={classes.CustomersHeight}>{customers}</div>

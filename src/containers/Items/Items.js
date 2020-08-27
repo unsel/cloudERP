@@ -14,6 +14,7 @@ import NotFound from '../../components/UI/NotFound/NotFound';
 import classes from './Items.module.css';
 import Header from '../../components/Header/Header';
 import Modal from '../../components/UI/Modal/Modal';
+import ErrorModal from '../../components/UI/Modal/ErrorModal/ErrorModal';
 
 import {Dropdown,DropdownButton} from 'react-bootstrap';
 
@@ -22,7 +23,7 @@ import {Dropdown,DropdownButton} from 'react-bootstrap';
 const Items = props => {
   const { onFetchItems } = props;
   const [nameFilter,setNameFilter] = useState(""); const[tempNameFilter,setTempNameFilter]=useState("");
-  const [workerFilter,setWorkerFilter] = useState(""); const[tempWorkerFilter,setTempWorkerFilter]=useState("");
+  const [groupFilter,setGroupFilter] = useState(""); const[tempGroupFilter,setTempGroupFilter]=useState("");
   const [addingNew,setAddingNew] = useState(false);
   const [editing,setEditing] = useState(false);
   const [editingMultiple,setEditingMultiple] = useState(false);
@@ -53,12 +54,10 @@ const Items = props => {
     onFetchItems();
   }, [onFetchItems]);
  
-const sortBy = (a,b) => {
-    if(sortFilter === "name"){
-    return a[sortFilter] > b[sortFilter] ? sortOrder:-sortOrder;
-    } else if (sortFilter ==="workers" || sortFilter ==="revenue"){
-      return +a[sortFilter] > +b[sortFilter] ? sortOrder:-sortOrder;
-    }
+  const sortBy = (a,b) => {
+    if(sortFilter === "name" || sortFilter === "group"){
+      return a[sortFilter] > b[sortFilter] ? sortOrder:-sortOrder;
+    } 
   }
 
   let dropdown = <DropdownButton
@@ -77,23 +76,20 @@ const sortBy = (a,b) => {
   let items = <Spinner />;
   if (!props.loading) {
     items= !props.items.length ? <NotFound create={()=>addingNewHandler()} elementName='Item'/> :[...props.items].slice(0,itemCount[0]?20:(itemCount[1]?50:100)).sort(sortBy)
-            .filter(item => (item.name.includes(nameFilter) || +item.workers < workerFilter) )
+            .filter(item => (item.itemName.includes(nameFilter) || item.itemGroup.includes(groupFilter) ) )
             .map(item => (
       <Item
         key={item.id}
-        name={item.name}
-        revenue={item.revenue}
-        workers={item.workers}
+        itemName={item.itemName}
+        itemCode={item.itemCode}
+        itemGroup={item.itemGroup}
+        unit={item.unit}
+        status={'Enabled'}
         id={item.id}
-        type={item.type}
-        status={item.status}
-        mail={item.mail}
-        phoneNumber={item.phoneNumber}
         editingHandler={(itemData)=>editingHandler(itemData)}
         handleCheckbox={(value,id)=>handleCheckbox(value,id)}
         checked = {checkAll?true:null}
         deleteItem = {(id)=>deleteItem(id)}
-        // products={(Object.keys(item.products)).map((item,i)=>{return <p>{item}</p>})}
       />
     ));
   }
@@ -117,7 +113,7 @@ const sortBy = (a,b) => {
     if(selectedItems.length === 1){
       setCheckAll(false)
     }
-    if(selectedItems.length === [...props.items].filter(item => (item.name.includes(nameFilter) || +item.workers < workerFilter) ).length-1){
+    if(selectedItems.length === [...props.items].filter(item => (item.itemName.includes(nameFilter) || item.itemGroup.includes(groupFilter) ) ).length-1){
       setCheckAll(true)
     }
   }
@@ -151,7 +147,7 @@ const sortBy = (a,b) => {
       setCheckAll(!checkAll);
     } else {
       setSelectedItems([]);
-      [...props.items].filter(item => (item.name.includes(nameFilter) || +item.workers < workerFilter) ).forEach(item=>setSelectedItems(selectedItems => [...selectedItems,item.id]));
+      [...props.items].filter(item => (item.itemName.includes(nameFilter) || item.itemGroup.includes(groupFilter) ) ).forEach(item=>setSelectedItems(selectedItems => [...selectedItems,item.id]));
       
       setCheckAll(!checkAll);
     }
@@ -167,7 +163,7 @@ const sortBy = (a,b) => {
   }
   const applyFilters = () => {
     setNameFilter(tempNameFilter);
-    setWorkerFilter(tempWorkerFilter);
+    setGroupFilter(tempGroupFilter);
     refreshHandler();
   }
   const nameFilterChangedHandler= (e) => {
@@ -179,12 +175,12 @@ const sortBy = (a,b) => {
       refreshHandler()    // bad practice ?
     }  
   }
-  const workerFilterChangedHandler= (e) => {
-    setTempWorkerFilter(e.target.value)
+  const groupFilterChangedHandler= (e) => {
+    setTempGroupFilter(e.target.value)
   }
-  const searchWorkerFilter = (e) => {
+  const searchGroupFilter = (e) => {
     if(e.key === 'Enter'){
-      setWorkerFilter(e.target.value)
+      setGroupFilter(e.target.value)
       refreshHandler()
     }
   }
@@ -213,8 +209,6 @@ const sortBy = (a,b) => {
       clearChecked();
   }
   
-
-  
   const sortOrderToggleHandler = () => {
     setSortOrder(-sortOrder);
   }
@@ -227,7 +221,7 @@ const sortBy = (a,b) => {
   let filterForm = (
     <div className={classes.FilterForm}>
         <input className={classes.NameFilter} placeholder="Name" value={tempNameFilter} type="text" onChange={nameFilterChangedHandler} onKeyDown={searchNameFilter}/>
-        <input className={classes.WorkerFilter} placeholder="Worker" value={tempWorkerFilter} type="number" onChange={workerFilterChangedHandler} onKeyDown={searchWorkerFilter}/>
+        <input className={classes.GroupFilter} placeholder="Group" value={tempGroupFilter} type="text" onChange={groupFilterChangedHandler} onKeyDown={searchGroupFilter}/>
         <div className={classes.WidthMaker1}></div>
         <span className={classes.FilterDiv}>
           <button onClick={()=>{applyFilters()}}>ApplyFilters</button>
@@ -241,10 +235,10 @@ const sortBy = (a,b) => {
           <input checked={checkAll && (selectedItems.length)} type="checkbox" onClick={()=>checkAllHandler()}/>
       {selectedItems.length === 0 ? 
           <div>
-            <p className={classes.Name} onClick={()=>{setSortFilter("name")}}> <strong>Full Name</strong></p> 
+            <p className={classes.Name} onClick={()=>{setSortFilter("name")}}> <strong>Item Name</strong></p> 
             <p className={classes.Others} > <strong>Status </strong></p>
-            <p className={classes.Workers} onClick={()=>{setSortFilter("workers")}}> <strong>Workers</strong></p>
-            <p className={classes.Others} > <strong>Type </strong></p>
+            <p className={classes.ItemCode} > <strong>Item Code</strong></p>
+            <p className={classes.Others} onClick={()=>{setSortFilter("group")}}> <strong>Item Group </strong></p>
             <span className={classes.Rate}>
                {props.loading ? '?' : !items[0] ? 0 :items.length<=20 ? items.length: (itemCount[0]) ? 20 :( items.length <= 50 ? items.length : (itemCount[1]? 50 :(items.length <= 100 ? items.length :100)))}  of {props.items.length}
             </span> 
@@ -285,28 +279,13 @@ const sortBy = (a,b) => {
     </div>
   )
   const errorModal = (
-            <Modal show={formModalOpen} modalClosed={()=>{setFormModalOpen(false)}} modalType='Modal2'>
-              <div className={classes.FormModal}>
-                <div className={classes.ModalHeadDiv}>
-                  <span className={classes.Text1}>
-                    {formMissingInfo[0] ? <strong><FontAwesomeIcon icon="circle" color="orange" size='xs'/> Missing Values Required</strong>
-                                      : <strong><FontAwesomeIcon icon="circle" color="red" size='xs'/> Message</strong>}
-                      
-                    </span>
-                      
-                  <button className={classes.CloseBtn} onClick={()=>{setFormModalOpen(false)}}>Close</button>
-                </div>
-                <div className={classes.Missing}>
-                  {formMissingInfo[0] ? <p>Following fields have missing values:</p> : <p>Following fields have invalid information:</p>}
-                  <ul>
-                  {formMissingInfo[0]  ? formMissingInfo.map((el,i)=>{return <li>{el}</li>})  
-                                       : formInvalidInfo.map((el,i)=>{return <li>{el}</li>}) }
-                  
-                  </ul>
-                </div>
-              </div>
-          </Modal>
-  )
+    <ErrorModal 
+      formModalOpen={formModalOpen}
+      setFormModalOpen={()=>setFormModalOpen(false)}
+      formMissingInfo={formMissingInfo}
+      formInvalidInfo={formInvalidInfo}
+    />
+)
   const editMultipleModal = (
     <Modal show={editingMultiple} modalClosed={()=>editingMultipleClosedHandler() } modalType='Modal1'>
             <EditMultiple

@@ -98,18 +98,8 @@
     border-radius: 2px;
     height: 2em;
 }
-.ModalHeadDiv{
-    padding: 10px 10px 15px 10px;
-    border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 15px;
-}
-.ModalHeadDiv Button{
-    margin-left: 5px;
-    border: none;
-    border-radius: 2px;
-    height: 2em;
-}
-.Name , .Others , .Workers,.ItemCount{
+
+.Name , .Others , .ItemCode,.ItemCount{
     display: inline-block;
     width: 20%;
     overflow: hidden;
@@ -125,24 +115,6 @@
     font-size: 12px;
     font-weight: 500;
     margin: 10px 10px 0px 0px;
-}
-
-
-.Text1{
-    display:inline-block;
-    margin-left: 10px;
-}
-
-.Missing{
-    margin-left: 25px;
-}
-.Missing ul{
-    margin-top: 15px;
-}
-
-
-.CloseBtn{
-    float: right;
 }
 .ItemsHeight{
     min-height: 400px;
@@ -185,7 +157,7 @@
     }
 }
 @media(max-width:1450px){
-    .Workers{
+    .ItemCode{
         display: none;
     }
     .SidebarTemp{
@@ -247,7 +219,7 @@
     .Name{
         width:50%
     }
-    .NameFilter , .WorkerFilter{
+    .NameFilter , .GroupFilter{
         width:70%;
     }
     .FilterDiv{

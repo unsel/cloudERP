@@ -16,10 +16,10 @@ const Home = props => {
                         <h6 className={classes.MiniTitle}>Your Shortcuts</h6>
                         <Link to="/items"><div className={classes.ilkler}>Items</div></Link>
                         <Link to="/customers"><div className={classes.ilkler}>Customers</div></Link>
+                        <Link to="/default"><div className={classes.ilkler}>Default</div></Link>
                         <Link to="/customers"><div className={classes.ilkler}>Suppliers</div></Link>
                         <Link to="/customers"><div className={classes.ilkler}>Sales Invoice</div></Link>
                         <Link to="/customers"><div className={classes.ilkler}>Dashboard</div></Link>
-                        <Link to="/customers"><div className={classes.ilkler}>NoContext</div></Link>
                 </div>
                 <div className={classes.Reports}>
                         <h6 className={classes.RowMiniTitle}>Reports & Masters</h6>
