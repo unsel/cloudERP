@@ -1,39 +1,37 @@
 import React,{useState} from 'react';
 import classes from './Rootpage.module.css';
+import {Link} from 'react-router-dom';
 
-import Home from '../../components/RootComponents/Home/Home';
-import HR from '../../components/RootComponents/HR/HR';
+import Home from '../../components/RootComponents/Home';
+import HR from '../../components/RootComponents/HR';
 
 const Rootpage = props => {
+    // const HR = React.lazy(() => { return import('../../components/RootComponents/HR');});   for less-active components
+    const [page,setPage] = useState('Home');
+    const Components = {
+        Home:Home,
+        HR:HR,
+        Accounting:Home,Assets:Home,Buying:Home,CRM:Home,Loan:Home,Payroll:Home,Projects:Home,Quality:Home,Selling:Home,Settings:Home
+    }
+    let MyComponent= Components[page];
+    const data = ["Home","Accounting","Assets","Buying","CRM","HR","Loan","Payroll","Projects","Quality","Selling","Settings" ]
 
-    const [page,setPage] = useState('home')
-
-    
+    const sideBarItems= [...data].map(item=>(
+        <Link to={item}><li onClick={()=>setPage(item)}>{item}</li></Link>
+    ))
     const sideBar = (
         <div className={classes.Sidebar} >
           <ul>
-              <li>Modules</li>
-              <li onClick={()=>{setPage('home')}}>Home</li>
-              <li>Accounting</li>
-              <li>Assets</li>
-              <li>Buying</li>
-              <li>CRM</li>
-              <li onClick={()=>{setPage('HR')}}>HR</li>
-              <li>Loan</li>
-              <li>Payroll</li>
-              <li>Projects</li>
-              <li>Quality</li>
-              <li>Selling</li>
-              <li>Settings</li>
+              {sideBarItems}
           </ul>
         </div>
-      )
+    )
     return (
         <div>
             {sideBar}
             <div>
                 <div className={classes.SidebarTemp}></div>  
-                {page === 'home' ? <Home/> : <HR/>}
+                <MyComponent/>
             </div>
         </div>
     )

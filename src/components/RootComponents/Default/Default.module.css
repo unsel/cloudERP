@@ -5,10 +5,9 @@
     width: 53%;
     margin-top: 30px; 
     margin-bottom: 20px;
+    padding-left: 15px;
 }
-.HomeWrapper{
-    padding-left:15px;
-}
+
 .MiniTitle ,.RowMiniTitle{
     margin-bottom: 19px;
     font-size: 14px;

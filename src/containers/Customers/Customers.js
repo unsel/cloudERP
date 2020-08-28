@@ -11,6 +11,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import NotFound from '../../components/UI/NotFound/NotFound';
+import Sidebar from '../../components/CommonPage/Sidebar/Sidebar1';
 import classes from './Customers.module.css';
 import Header from '../../components/Header/Header';
 import Modal from '../../components/UI/Modal/Modal';
@@ -164,8 +165,8 @@ const Customers = props => {
   }
 
   const resetFilters = () => {
-    setNameFilter(""); setWorkerFilter("tempWorkerFilter");
-    setTempNameFilter(""); setTempWorkerFilter("");
+    setNameFilter(""); setWorkerFilter();
+    setTempNameFilter(""); setTempWorkerFilter();
     setSortFilter("");
   }
   const applyFilters = () => {
@@ -268,26 +269,6 @@ const Customers = props => {
     </div>
   )
  
-  const sideBar = (
-    <div className={classes.Sidebar} >
-      <ul>
-        <li>VIEWS</li>
-        <li>Dashboard</li>
-        <li>Images</li>
-      </ul>
-      <ul>
-        <li>FILTER BY</li>
-        <li>Assigned To</li>
-        <li>Created By</li>
-      </ul>
-      <ul>
-        <li>TAGS</li>
-        <li>Tags</li>
-        <li>Show Tags</li>
-      </ul>
-    </div>
-  )
- 
   const errorModal = (
       <ErrorModal 
         formModalOpen={formModalOpen}
@@ -340,7 +321,7 @@ const Customers = props => {
           {addCustomerModal}
           {editCustomerModal}
           {header}
-          {sideBar}
+          <Sidebar />
           <div className={classes.Content}>
             <div className={classes.SidebarTemp}></div>
             <div className={classes.Customers}>

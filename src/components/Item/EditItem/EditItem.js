@@ -39,7 +39,7 @@ const EditItem = props => {
                    {value:'Raw',displayValue:'Raw Material'},
                    {value:'Product',displayValue:'Product'}
                   ],
-          placehold:'Unit'
+          placehold:'Item Group'
           
       },
       value: 'Consumables',
@@ -65,6 +65,7 @@ const EditItem = props => {
 
 
   useEffect(()=>{
+
     const updatedForm = updateObject(itemForm,{
         itemName: updateObject(itemForm.itemName,{value:props.itemData.itemName,valid:true,touched:false}),
         itemGroup:updateObject(itemForm.itemGroup,{value:props.itemData.itemGroup,valid:true,touched:false}),
@@ -111,7 +112,7 @@ const EditItem = props => {
     }
    
     const item = {
-       itemName:formData.itemName,
+      itemName:formData.itemName,
       itemCode:formData.itemCode,
       itemGroup:formData.itemGroup,
       unit:formData.unit,
@@ -123,7 +124,6 @@ const EditItem = props => {
     clearForm();
     setFormIsValid(true);
   };
-
   
   const inputChangedHandler = (event, inputIdentifier) => {
     const updatedFormElement = updateObject(itemForm[inputIdentifier], {
@@ -178,7 +178,6 @@ const EditItem = props => {
     form = <Spinner />;
   }
  
-  
   return (
     <div className={classes.Form}>
       <div className={classes.HeadDiv}>

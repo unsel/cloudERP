@@ -13,11 +13,12 @@
     padding-left: auto;
     z-index: 100;
 }
+
 .Sidebar li:first-child{
-    font-weight: 500;
-    color: gray;
+    color: #36414c;
 }
 .Sidebar li{
+    color:yellow;
     padding: 10px 15px;
     cursor: pointer;
     list-style-type:none;
