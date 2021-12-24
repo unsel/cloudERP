@@ -15,7 +15,7 @@ const toolbar = ( props ) => (
         <div className={classes.Bars}><FontAwesomeIcon  icon="bars" color="#8D99A6"/></div>
 
         <div className={classes.Searchbar}>
-            <input type="search" placeholder=" Search or type a command"></input>
+            <input type="search" placeholder=" Search Bar (NA)"></input>
             
         </div>
 

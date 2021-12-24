@@ -77,7 +77,7 @@ const Items = props => {
   let items = <Spinner />;
   if (!props.loading) {
     items= !props.items.length ? <NotFound create={()=>addingNewHandler()} elementName='Item'/> :[...props.items].slice(0,itemCount[0]?20:(itemCount[1]?50:100)).sort(sortBy)
-            .filter(item => (item.itemName.includes(nameFilter) || item.itemGroup.includes(groupFilter) ) )
+            .filter(item => (item.itemName.toLowerCase().includes(nameFilter.toLowerCase()) || item.itemGroup.toLowerCase().includes(groupFilter.toLowerCase()) ) )
             .map(item => (
       <Item
         key={item.id}

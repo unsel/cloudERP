@@ -26,7 +26,7 @@ const Default = props => {
                     {cards}
             </div>
             <div className={classes.Reports}>
-                    <h6 className={classes.RowMiniTitle}>Reports & Masters</h6>
+                <h6 className={classes.RowMiniTitle}>Reports & Masters</h6>
                 <div className='row'>
                     {tables}
                 </div>

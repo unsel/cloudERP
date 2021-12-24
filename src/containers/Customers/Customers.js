@@ -79,7 +79,7 @@ const Customers = props => {
   let customers = <Spinner />;
   if (!props.loading) {
     customers= !props.customers.length ? <NotFound create={()=>addingNewHandler()}  elementName='Customer'/> :[...props.customers].slice(0,itemCount[0]?20:(itemCount[1]?50:100)).sort(sortBy)
-            .filter(customer => (customer.name.includes(nameFilter) || +customer.workers < workerFilter) )
+            .filter(customer => (customer.name.toLowerCase().includes(nameFilter.toLowerCase()) || +customer.workers <= workerFilter) )
             .map(customer => (
       <Customer
         key={customer.id}
@@ -216,8 +216,6 @@ const Customers = props => {
       setEditingMultiple(false)
       clearChecked();
   }
-  
-
   
   const sortOrderToggleHandler = () => {
     setSortOrder(-sortOrder);
